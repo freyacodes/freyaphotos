@@ -1,6 +1,12 @@
 @use "normalize.css"
 
-$header-height: 40px
+$header-height: 50px
+$color-header: hsl(230, 35%, 7%)
+$color-sidebar: hsl(240, 20%, 9%)
+$color-content: hsl(240, 8%, 13%)
+
+body
+  font-family: sans-serif
 
 a
   color: #ccc
@@ -13,13 +19,12 @@ a:hover
   display: block
   width: 100vw
   height: $header-height
-  background-color: #111
+  background-color: $color-header
 
 #title
-  margin: 10px
+  margin: 16px
   line-height: $header-height
   font-size: 18px
-  font-family: sans-serif
 
 #main-container
   width: 100vw
@@ -28,10 +33,45 @@ a:hover
 
 #sidebar
   width: $header-height
-  height: calc(100vh - $header-height)
-  background-color: #1a1a1a
+  min-height: calc(100vh - $header-height)
+  background-color: $color-sidebar
 
 #content
-  background-color: #222
-  height: calc(100vh - $header-height)
+  background-color: $color-content
+  min-height: calc(100vh - $header-height)
   width: calc( 100vw - $header-height)
+
+#gallery
+  padding: 30px
+
+#gallery-title
+  margin-bottom: 20px
+  font-size: 24px
+  color: #ccc
+
+#gallery-cards
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+  width: 100%
+  gap: 12px
+
+.gallery-card
+  .thumbnail
+    display: block
+    width: 100%
+    aspect-ratio: 1 / 1
+    background-position: 50%
+    background-repeat: no-repeat
+    background-size: cover
+    background-image: url(https://cdn.discordapp.com/attachments/726720156784656417/1103338766866853898/DSC01454.jpg)
+
+  .metadata
+    width: calc(100% - 8px * 2)
+    border-radius: 0 0 8px 8px
+    background-color: $color-sidebar
+    padding: 8px
+    color: #eee
+
+    p
+      margin: 4px
+      font-size: 13px
