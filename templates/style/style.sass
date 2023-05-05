@@ -1,0 +1,37 @@
+@use "normalize.css"
+
+$header-height: 40px
+
+a
+  color: #ccc
+  text-decoration: none
+
+a:hover
+  color: #eee
+
+#header
+  display: block
+  width: 100vw
+  height: $header-height
+  background-color: #111
+
+#title
+  margin: 10px
+  line-height: $header-height
+  font-size: 18px
+  font-family: sans-serif
+
+#main-container
+  width: 100vw
+  background-color: blue
+  display: flex
+
+#sidebar
+  width: $header-height
+  height: calc(100vh - $header-height)
+  background-color: #1a1a1a
+
+#content
+  background-color: #222
+  height: calc(100vh - $header-height)
+  width: calc( 100vw - $header-height)

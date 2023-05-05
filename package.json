@@ -5,10 +5,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "watch": "sass --watch sass:build/css",
-    "build": "sass sass:build/css"
+    "watch": "watch --interval=1 'npm run build' ./src ./templates ./static",
+    "build": "node src/build.js"
   },
   "devDependencies": {
-    "sass": "^1.62.1"
+    "cheerio": "^1.0.0-rc.12",
+    "fs-extra": "^11.1.1",
+    "sass": "^1.62.1",
+    "watch": "^1.0.2"
   }
 }
