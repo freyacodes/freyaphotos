@@ -1,0 +1,14 @@
+{
+  "name": "freyaphotos",
+  "version": "0.1.0",
+  "author": "Freya Arbjerg",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "watch": "sass --watch sass:build/css",
+    "build": "sass sass:build/css"
+  },
+  "devDependencies": {
+    "sass": "^1.62.1"
+  }
+}
