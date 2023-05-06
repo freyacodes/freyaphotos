@@ -7,3 +7,4 @@ exports.publicImagesDir = "data/public/";
 exports.templateDir = "templates/";
 exports.templateBase = fs.readFileSync("templates/base.html");
 exports.staticDir = "static/";
+exports.sidecarDir = "/home/freya/photos";
