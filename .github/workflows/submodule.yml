@@ -14,6 +14,7 @@ jobs:
     - name: Write ssh key
       run: |
           echo "$DATA_DEPLOY_KEY" >> deploykey
+          chmod 400 deploykey
       shell: bash
       env:
         DATA_DEPLOY_KEY: ${{secrets.DATA_DEPLOY_KEY}}
