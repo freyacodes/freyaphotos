@@ -8,17 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
+    - name: Checkout repository
+      uses: actions/checkout@v3
+        
     - name: Write ssh key
       run: |
           echo "$DATA_DEPLOY_KEY" >> deploykey
       shell: bash
       env:
         DATA_DEPLOY_KEY: ${{secrets.DATA_DEPLOY_KEY}}
-    
-    - name: Checkout repository and submodules
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
+        
+    - name: Clone submodule
+      run: |
+        rm -rf data
+        git rm data
+        git submodule add --force --depth 1 git@github.com:freyacodes/freyaphotos-data.git data
       env:
         GIT_SSH_COMMAND: "ssh -i deploykey"
 
