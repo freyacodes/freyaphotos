@@ -22,7 +22,7 @@ exports.buildCollection = function (collectionName, images) {
     for (const image of images) {
         const card = cheerio.load(cardTemplate);
         card(".metadata").html("<p>" + image + "</p>")
-        card(".thumbnail").css("background-image", "url(/img/" + image + ")")
+        card(".thumbnail").css("background-image", "url(/img/thumbs/" + image + ")")
         $("#gallery-cards").append(card.html());
     }
 

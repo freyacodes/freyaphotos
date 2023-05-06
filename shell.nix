@@ -6,9 +6,6 @@ pkgs.mkShell {
     git-lfs
     yarn
     nodePackages.live-server
+    imagemagick
   ];
-
-  shellHook = ''
-     yarn install
-  '';
 }
