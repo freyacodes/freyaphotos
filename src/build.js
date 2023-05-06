@@ -17,7 +17,7 @@ fs.ensureDirSync(lib.imageThumbsOutDir);
 for (const file of fs.readdirSync(lib.publicImagesDir)) {
     if (fs.existsSync(lib.imageOutDir + file)) continue
     fs.link(lib.publicImagesDir + file, lib.imageOutDir + file)
-    child_process.execSync("convert " + lib.publicImagesDir + file + " -gravity center -scale 300x300^ -extent 300x300 " + lib.imageThumbsOutDir + file)
+    child_process.execSync("convert " + lib.publicImagesDir + file + " -gravity center -scale 350x350^ -extent 350x350 " + lib.imageThumbsOutDir + file)
     console.log("Wrote " + lib.imageThumbsOutDir + file)
 }
 
