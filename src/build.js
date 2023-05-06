@@ -12,7 +12,6 @@ for (const file of fs.readdirSync(lib.buildDir)) {
 //    fs.copySync(lib.staticDir + file, lib.buildDir + file);
 //}
 
-
 fs.ensureDirSync(lib.imageOutDir);
 fs.ensureDirSync(lib.imageThumbsOutDir);
 for (const file of fs.readdirSync(lib.publicImagesDir)) {
