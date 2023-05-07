@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	kotlin("jvm") version "1.7.22"
+	application
 }
 
 group = "dev.arbjerg"
@@ -33,3 +34,8 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+application {
+	mainClass.set("dev.arbjerg.freyaphotos.MainKt")
+}
+
