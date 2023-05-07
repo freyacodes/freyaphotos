@@ -15,10 +15,12 @@ java {
 
 repositories {
 	mavenCentral()
+	maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
 }
 
 dependencies {
-
+	implementation("org.jsoup:jsoup:1.16.1")
+	implementation("com.github.mjeanroy:exiftool-lib:3.0.0")
 }
 
 tasks.withType<KotlinCompile> {
