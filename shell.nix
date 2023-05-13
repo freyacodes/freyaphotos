@@ -7,5 +7,6 @@ pkgs.mkShell {
     yarn
     nodePackages.live-server
     imagemagick
+    exiftool
   ];
 }

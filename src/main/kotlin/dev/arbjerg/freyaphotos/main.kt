@@ -1,5 +1,10 @@
 package dev.arbjerg.freyaphotos
 
-fun main() {
-    build()
+import dev.arbjerg.freyaphotos.build.Builder
+
+fun main(args: Array<String>) {
+    when(args.firstOrNull()) {
+        "exif" -> Exif.compile()
+        else -> Builder.build()
+    }
 }
