@@ -4,7 +4,6 @@ pkgs.mkShell {
   nativeBuildInputs = with pkgs; [ 
     netlify-cli
     git-lfs
-    yarn
     nodePackages.live-server
     imagemagick
     exiftool
