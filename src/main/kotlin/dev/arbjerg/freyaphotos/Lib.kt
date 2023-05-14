@@ -12,4 +12,5 @@ object Lib {
     val sassFile = templateDir.child("style").child("style.sass")
     val staticDir = File("static")
     val sidecarDir = File("/home/freya/photos")
+    val metaDir = File("meta")
 }
