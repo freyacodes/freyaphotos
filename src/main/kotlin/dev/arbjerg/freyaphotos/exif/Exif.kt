@@ -9,12 +9,17 @@ import dev.arbjerg.freyaphotos.child
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
+import java.nio.file.Files
 
 object Exif {
 
     private const val sidecarExtension = ".arw.xmp"
 
     fun compile() {
+        Lib.publicImagesDir.walkTopDown()
+            .filter { it.name.endsWith(".JPG") }
+            .forEach { Files.move(it.toPath(), it.parentFile.child(it.nameWithoutExtension + ".jpg").toPath()) }
+
         val exifTool: ExifTool = ExifToolBuilder().build()
         val sidecars = mutableMapOf<String, File>()
         Lib.sidecarDir.walkTopDown().forEach {

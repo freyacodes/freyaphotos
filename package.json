@@ -1,0 +1,10 @@
+{
+  "name": "freyaphotos",
+  "version": "0.1.0",
+  "author": "Freya Arbjerg",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "sass": "^1.62.1"
+  }
+}
