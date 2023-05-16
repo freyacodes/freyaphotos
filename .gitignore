@@ -1,7 +1,7 @@
-build
+/build
 node_modules
 .netlify
 .idea
 .gradle
-site
-images
+site/*
+!site/img
