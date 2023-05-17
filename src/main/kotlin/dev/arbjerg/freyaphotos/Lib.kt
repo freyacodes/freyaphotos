@@ -16,6 +16,6 @@ object Lib {
 
     fun getImagePath(name: String, thumbnail: Boolean = false) = when {
         !thumbnail -> "/img/$name.jpg"
-        else -> "/img/$name.jpg?nf_resize=fit&w=400&h=400"
+        else -> "/img/$name.jpg?nf_resize=smartcrop&w=400&h=400"
     }
 }
