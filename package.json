@@ -4,7 +4,12 @@
   "author": "Freya Arbjerg",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "watch": "./node_modules/.bin/watch --interval=1 \"yarn run build\" ./templates ./src",
+    "build": "./gradlew run"
+  },
   "devDependencies": {
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "watch": "^1.0.2"
   }
 }

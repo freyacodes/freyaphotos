@@ -4,9 +4,12 @@ $header-height: 50px
 $color-header: hsl(230, 35%, 4%)
 $color-sidebar: hsl(240, 15%, 10%)
 $color-content: hsl(240, 7%, 20%)
+$modal-header-height: 40px
+$metadata-width: 280px
 
 body
   font-family: sans-serif
+  overflow: hidden // TODO: Remove
 
 a
   color: #ccc
@@ -72,3 +75,56 @@ a:hover
     p
       margin: 4px
       font-size: 13px
+
+/* Modal */
+
+#modal-container
+  display: flex
+  width: 100vw
+  height: 100vh
+  position: fixed
+  bottom: 0
+  right: 0
+  justify-content: space-between
+  background-color: #000
+
+  #modal-left
+    width: calc(100vw - $metadata-width)
+
+  #modal-header
+    width: 100%
+    height: $modal-header-height
+    line-height: $modal-header-height
+    font-size: 16px
+    text-align: center
+    color: #fff
+
+  #modal-footer
+    width: 100%
+    height: $modal-header-height
+
+  #image-container
+    width: 100%
+    height: calc(100vh - $modal-header-height*2)
+    background-image: url(/img/DSC01310.jpg)
+    background-position: 50%
+    background-repeat: no-repeat
+    background-size: contain
+
+  #metadata
+    width: $metadata-width
+    background-color: #1f1f1f
+    color: #ddd
+
+    h1
+      font-size: 20px
+      text-align: center
+      margin: 20px
+
+    table
+      margin: 16px
+
+    td:first-child
+      text-align: right
+      margin-left: 8px
+      color: #aaa
