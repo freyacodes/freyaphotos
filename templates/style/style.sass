@@ -61,6 +61,8 @@ a:hover
   gap: 12px
 
 .gallery-card
+  cursor: pointer
+
   .thumbnail
     display: block
     width: 100%
@@ -95,6 +97,9 @@ a:hover
 
   #modal-left
     width: calc(100vw - $metadata-width)
+    display: flex
+    flex-direction: column
+    justify-content: space-between
 
   #modal-header
     width: 100%
@@ -110,11 +115,6 @@ a:hover
 
   #image-container
     width: 100%
-    height: calc(100vh - $modal-header-height*2)
-    background-image: url(/img/DSC01310.jpg)
-    background-position: 50%
-    background-repeat: no-repeat
-    background-size: contain
 
   #metadata
     width: $metadata-width

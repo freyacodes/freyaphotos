@@ -9,6 +9,7 @@ object Lib {
     val publicImagesDir = imageOutDir
     val templateDir = File("templates")
     val templateBase = File("templates/base.html")
+    val galleryScriptFile = templateDir.child("gallery.js")
     val sassFile = templateDir.child("style").child("style.sass")
     val staticDir = File("static")
     val sidecarDir = File("/home/freya/photos")

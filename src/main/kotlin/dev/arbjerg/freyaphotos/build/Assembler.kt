@@ -36,7 +36,7 @@ object Assembler {
         }
 
         val manifest = Json.encodeToString(manifestEntries.associateBy { it.meta.name })
-        val script = "const manifest = $manifest;"
+        val script = "const manifest = $manifest;\n\n${Lib.galleryScriptFile.readText()}"
 
         val gallery = File(Lib.templateDir, "gallery/gallery.html").readHtml()
         val cardTemplate = File(Lib.templateDir, "gallery/card.html")
@@ -48,6 +48,7 @@ object Assembler {
         images.forEach { image ->
             val card = cardTemplate.clone()
             card.attr("href", "/img/${image.file.name}")
+            card.attr("name", image.metadata.name)
             card.getElementsByClass("metadata").html("<p>${image.file.name}</p>")
             card.getElementsByClass("thumbnail")
                 .attr("style", "background-image: url(${Lib.getImagePath(image.file.nameWithoutExtension, thumbnail = true)})")
