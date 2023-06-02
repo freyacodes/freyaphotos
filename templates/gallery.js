@@ -36,8 +36,23 @@ function exitModal() {
 function openModal(manifestEntry) {
     currentImage = manifestEntry;
     const meta = manifestEntry.meta;
+    document.getElementById("image-container").src = ""
     document.getElementById("image-container").src = manifestEntry.url;
     document.getElementById("modal-header").innerText = meta.name
+    
     document.body.className = "modal-present";
+    preload(manifestEntry.next)
+    preload(manifestEntry.previous)
 }
 
+function preload(name) {
+    if (name == undefined) return;
+    const manifestEntry = manifest[name];
+    if (manifestEntry.preloading == true) return;
+    const preloadLink = document.createElement("link");
+    preloadLink.href = manifestEntry.url;
+    preloadLink.rel = "preload";
+    preloadLink.as = "image";
+    document.head.appendChild(preloadLink);
+    manifestEntry.preloading = true;
+}
