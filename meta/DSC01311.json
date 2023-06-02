@@ -9,5 +9,13 @@
     "focalLength": 50,
     "time": "2022:06:09 17:27:48",
     "placesString": "places|Norway|Oslo|Oslo",
-    "authorsString": "authors|Freya Arbjerg"
+    "authorsString": "authors|Freya Arbjerg",
+    "country": "Norway",
+    "region": "Oslo",
+    "city": "Oslo",
+    "sublocation": null,
+    "photographer": "Freya Arbjerg",
+    "editor": null,
+    "prettyAperture": "f/5.0",
+    "prettyCamera": "SONY A7 II"
 }

@@ -9,5 +9,13 @@
     "focalLength": 50,
     "time": "2022:06:28 17:30:55",
     "placesString": "places|France|Côte d'Azur|Antibes",
-    "authorsString": "authors|Akka"
+    "authorsString": "authors|Akka",
+    "country": "France",
+    "region": "Côte d'Azur",
+    "city": "Antibes",
+    "sublocation": null,
+    "photographer": "Akka",
+    "editor": null,
+    "prettyAperture": "f/2.5",
+    "prettyCamera": "SONY A7 II"
 }

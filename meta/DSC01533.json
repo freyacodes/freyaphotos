@@ -9,5 +9,13 @@
     "focalLength": 50,
     "time": "2022:06:30 15:09:57",
     "placesString": "places|France|Côte d'Azur",
-    "authorsString": "authors|Freya Arbjerg"
+    "authorsString": "authors|Freya Arbjerg",
+    "country": "France",
+    "region": "Côte d'Azur",
+    "city": null,
+    "sublocation": null,
+    "photographer": "Freya Arbjerg",
+    "editor": null,
+    "prettyAperture": "f/8.0",
+    "prettyCamera": "SONY A7 II"
 }

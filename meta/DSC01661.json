@@ -9,5 +9,13 @@
     "focalLength": 50,
     "time": "2023:04:22 16:52:28",
     "placesString": "places|Denmark|Capital Region|Copenhagen|Langelinie",
-    "authorsString": "authors|Freya Arbjerg"
+    "authorsString": "authors|Freya Arbjerg",
+    "country": "Denmark",
+    "region": "Capital Region",
+    "city": "Copenhagen",
+    "sublocation": "Langelinie",
+    "photographer": "Freya Arbjerg",
+    "editor": null,
+    "prettyAperture": "f/2.2",
+    "prettyCamera": "SONY A7 II"
 }

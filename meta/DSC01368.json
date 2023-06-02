@@ -4,10 +4,17 @@
     "model": "ILCE-7M2",
     "lens": "----",
     "iso": 100,
-    "aperture": null,
     "shutterSpeed": 1.25E-4,
     "focalLength": 0,
     "time": "2022:06:28 14:03:51",
     "placesString": "places|France|Côte d'Azur|Nice",
-    "authorsString": "authors|Freya Arbjerg"
+    "authorsString": "authors|Freya Arbjerg",
+    "country": "France",
+    "region": "Côte d'Azur",
+    "city": "Nice",
+    "sublocation": null,
+    "photographer": "Freya Arbjerg",
+    "editor": null,
+    "prettyAperture": null,
+    "prettyCamera": "SONY A7 II"
 }
