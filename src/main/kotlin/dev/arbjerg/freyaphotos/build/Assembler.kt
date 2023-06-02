@@ -3,6 +3,8 @@ package dev.arbjerg.freyaphotos.build
 import dev.arbjerg.freyaphotos.Lib
 import dev.arbjerg.freyaphotos.child
 import dev.arbjerg.freyaphotos.readHtml
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
@@ -23,9 +25,18 @@ object Assembler {
         proc.inputStream.bufferedReader().readText()
     }
 
-    fun buildCollection(name: String, images: List<File>) {
+    fun buildCollection(name: String, images: List<Image>) {
         val doc = Lib.templateBase.readHtml()
         doc.getElementById("style")!!.text(sass)
+
+        val manifestEntries = images.map { ManifestEntry(it.metadata) }
+        manifestEntries.forEachIndexed { index, manifestEntry ->
+            manifestEntry.previous = manifestEntries.getOrNull(index - 1)?.meta?.name
+            manifestEntry.next = manifestEntries.getOrNull(index + 1)?.meta?.name
+        }
+
+        val manifest = Json.encodeToString(manifestEntries.associateBy { it.meta.name })
+        val script = "const manifest = $manifest;"
 
         val gallery = File(Lib.templateDir, "gallery/gallery.html").readHtml()
         val cardTemplate = File(Lib.templateDir, "gallery/card.html")
@@ -36,14 +47,15 @@ object Assembler {
 
         images.forEach { image ->
             val card = cardTemplate.clone()
-            card.attr("href", "/img/${image.name}")
-            card.getElementsByClass("metadata").html("<p>${image.name}</p>")
+            card.attr("href", "/img/${image.file.name}")
+            card.getElementsByClass("metadata").html("<p>${image.file.name}</p>")
             card.getElementsByClass("thumbnail")
-                .attr("style", "background-image: url(${Lib.getImagePath(image.nameWithoutExtension, thumbnail = true)})")
+                .attr("style", "background-image: url(${Lib.getImagePath(image.file.nameWithoutExtension, thumbnail = true)})")
             gallery.getElementById("gallery-cards")!!.appendChild(card)
         }
 
         doc.getElementById("content")!!.appendChild(gallery.firstElementChild()!!)
+        doc.getElementById("script")!!.text(script)
         Lib.buildDir.child("index.html").writeText(doc.toString())
         println("Wrote index.html")
     }
