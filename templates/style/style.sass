@@ -7,9 +7,11 @@ $color-content: hsl(240, 7%, 20%)
 $modal-header-height: 40px
 $metadata-width: 280px
 
-body
+body .modal-present
   font-family: sans-serif
-  overflow: hidden // TODO: Remove
+
+body.modal-present
+  overflow: hidden
 
 a
   color: #ccc
@@ -78,8 +80,11 @@ a:hover
 
 /* Modal */
 
-#modal-container
+.modal-present #modal-container
   display: flex
+
+#modal-container
+  display: none
   width: 100vw
   height: 100vh
   position: fixed
@@ -124,7 +129,13 @@ a:hover
     table
       margin: 16px
 
+    tr
+      padding: 8px
+
+    td
+      vertical-align: top
+
     td:first-child
       text-align: right
-      margin-left: 8px
       color: #aaa
+      padding-right: 4px
