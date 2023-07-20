@@ -36,13 +36,21 @@ function exitModal() {
 function openModal(manifestEntry) {
     currentImage = manifestEntry;
     const meta = manifestEntry.meta;
-    document.getElementById("image-container").src = ""
+    document.getElementById("image-container").src = "";
     document.getElementById("image-container").src = manifestEntry.url;
-    document.getElementById("modal-header").innerText = meta.name
-    
+    document.getElementById("modal-header").innerText = meta.name;
+
+    document.getElementById("metadata-tbody").childNodes.forEach(tr => {
+        if (tr.nodeType != 1) return;
+        const key = tr.getAttribute("key");
+        if (key == undefined) return;
+        const value = meta[key];
+        if (value != undefined) tr.lastElementChild.innerText = value;
+    });
+
     document.body.className = "modal-present";
-    preload(manifestEntry.next)
-    preload(manifestEntry.previous)
+    preload(manifestEntry.next);
+    preload(manifestEntry.previous);
 }
 
 function preload(name) {
