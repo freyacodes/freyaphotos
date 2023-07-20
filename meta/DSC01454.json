@@ -8,6 +8,8 @@
     "shutterSpeed": 8.0E-4,
     "focalLength": 50,
     "timestamp": "2022:06:28 17:30:55",
+    "resolutionX": 5661,
+    "resolutionY": 4024,
     "placesString": "places|France|Côte d'Azur|Antibes",
     "authorsString": "authors|Akka",
     "date": "28 Jun 2022",
@@ -19,5 +21,6 @@
     "photographer": "Akka",
     "editor": null,
     "prettyAperture": "f/2.5",
-    "prettyCamera": "SONY A7 II"
+    "prettyCamera": "SONY A7 II",
+    "prettyResolution": "5661x4024"
 }

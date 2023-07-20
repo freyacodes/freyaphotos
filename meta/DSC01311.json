@@ -8,6 +8,8 @@
     "shutterSpeed": 0.004,
     "focalLength": 50,
     "timestamp": "2022:06:09 17:27:48",
+    "resolutionX": 4000,
+    "resolutionY": 6000,
     "placesString": "places|Norway|Oslo|Oslo",
     "authorsString": "authors|Freya Arbjerg",
     "date": "09 Jun 2022",
@@ -19,5 +21,6 @@
     "photographer": "Freya Arbjerg",
     "editor": null,
     "prettyAperture": "f/5.0",
-    "prettyCamera": "SONY A7 II"
+    "prettyCamera": "SONY A7 II",
+    "prettyResolution": "4000x6000"
 }

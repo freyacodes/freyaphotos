@@ -21,6 +21,8 @@ data class Metadata(
     var shutterSpeed: Float? = null,
     var focalLength: Int? = null,
     var timestamp: String? = null,
+    var resolutionX: Int? = null,
+    var resolutionY: Int? = null,
 
     var placesString: String? = null,
     var authorsString: String? = null
@@ -53,6 +55,7 @@ data class Metadata(
 
     @EncodeDefault
     val prettyAperture: String? = aperture?.let { "f/$it" }
+
     @EncodeDefault
     val prettyCamera: String? = model?.let {
         buildString {
@@ -63,6 +66,11 @@ data class Metadata(
                 else -> append(model)
             }
         }
+    }
+
+    @EncodeDefault
+    val prettyResolution: String? = resolutionX.let { x ->
+        resolutionY?.let { y -> "${x}x${y}" }
     }
 
     companion object {

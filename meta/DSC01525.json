@@ -8,6 +8,8 @@
     "shutterSpeed": 0.00125,
     "focalLength": 50,
     "timestamp": "2022:06:29 18:27:56",
+    "resolutionX": 4000,
+    "resolutionY": 6000,
     "authorsString": "authors|Freya Arbjerg",
     "date": "29 Jun 2022",
     "time": "18:27 CEST",
@@ -18,5 +20,6 @@
     "photographer": "Freya Arbjerg",
     "editor": null,
     "prettyAperture": "f/3.5",
-    "prettyCamera": "SONY A7 II"
+    "prettyCamera": "SONY A7 II",
+    "prettyResolution": "4000x6000"
 }

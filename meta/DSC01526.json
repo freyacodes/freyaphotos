@@ -8,6 +8,8 @@
     "shutterSpeed": 0.00125,
     "focalLength": 50,
     "timestamp": "2022:06:29 18:38:37",
+    "resolutionX": 6000,
+    "resolutionY": 4000,
     "placesString": "places|France|Côte d'Azur",
     "authorsString": "authors|Freya Arbjerg",
     "date": "29 Jun 2022",
@@ -19,5 +21,6 @@
     "photographer": "Freya Arbjerg",
     "editor": null,
     "prettyAperture": "f/10.0",
-    "prettyCamera": "SONY A7 II"
+    "prettyCamera": "SONY A7 II",
+    "prettyResolution": "6000x4000"
 }

@@ -7,6 +7,8 @@
     "shutterSpeed": 1.25E-4,
     "focalLength": 0,
     "timestamp": "2022:06:28 14:02:38",
+    "resolutionX": 6000,
+    "resolutionY": 4000,
     "placesString": "places|France|Côte d'Azur|Nice",
     "authorsString": "authors|Freya Arbjerg",
     "date": "28 Jun 2022",
@@ -18,5 +20,6 @@
     "photographer": "Freya Arbjerg",
     "editor": null,
     "prettyAperture": null,
-    "prettyCamera": "SONY A7 II"
+    "prettyCamera": "SONY A7 II",
+    "prettyResolution": "6000x4000"
 }

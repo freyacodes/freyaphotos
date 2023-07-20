@@ -64,6 +64,9 @@ object Exif {
             t["FocalLength"]?.toInt(),
             t["DateTimeOriginal"],
 
+            t["ImageWidth"]?.toInt(),
+            t["ImageHeight"]?.toInt(),
+
             subjects.find { it.startsWith("places") },
             authorsString = subjects.find { it.startsWith("authors") }
         )
