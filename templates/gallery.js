@@ -45,7 +45,7 @@ function openModal(manifestEntry) {
         const key = tr.getAttribute("key");
         if (key == undefined) return;
         const value = meta[key];
-        if (value != undefined) tr.lastElementChild.innerText = value;
+        tr.lastElementChild.innerText = value != undefined ? value : "";
     });
 
     document.body.className = "modal-present";
