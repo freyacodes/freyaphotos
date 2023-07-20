@@ -20,15 +20,22 @@ data class Metadata(
     var aperture: Float? = null,
     var shutterSpeed: Float? = null,
     var focalLength: Int? = null,
-    var time: String? = null,
+    var timestamp: String? = null,
 
     var placesString: String? = null,
     var authorsString: String? = null
 ) {
+
     @Transient
-    val parsedTime = time?.let {
+    val zoneDateTime = timestamp?.let {
         LocalDateTime.parse(it.take(19), dateFormat).atZone(ZoneId.of("Europe/Copenhagen"))
     }
+
+    @EncodeDefault
+    val date = zoneDateTime?.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+
+    @EncodeDefault
+    val time = zoneDateTime?.format(DateTimeFormatter.ofPattern("HH:mm z"))
 
     @EncodeDefault
     val country: String? = placesString?.split("|")?.getOrNull(1)

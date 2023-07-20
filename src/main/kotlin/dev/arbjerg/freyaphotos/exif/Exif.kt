@@ -80,7 +80,7 @@ object Exif {
         aperture = image.aperture ?: sidecar.aperture,
         shutterSpeed = image.shutterSpeed ?: sidecar.shutterSpeed,
         focalLength = image.focalLength ?: sidecar.focalLength,
-        time = image.time ?: sidecar.time,
+        timestamp = image.timestamp ?: sidecar.timestamp,
 
         placesString = sidecar.placesString ?: image.placesString,
         authorsString = sidecar.authorsString ?: image.authorsString,
