@@ -7,5 +7,8 @@
     "settings": {
         "editor.formatOnSave": true,
         "files.autoSaveDelay": 60000
+    },
+    "deno": {
+        "enablePaths": ["netlify/edge-functions"]
     }
 }
