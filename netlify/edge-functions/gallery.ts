@@ -2,7 +2,7 @@ import { OAuth2Client } from "https://deno.land/x/oauth2_client@v1.0.2/mod.ts";
 import { Context } from "https://edge.netlify.com";
 import * as jose from 'https://deno.land/x/jose@v4.14.4/index.ts';
 
-const hmacSecret = new TextEncoder().encode(Netlify.env.get("JWT_SECRET"))
+const hmacSecret = new TextEncoder().encode(Deno.env.get("JWT_SECRET"))
 const jwtAlg = "HS256"
 const jwtIssuer = "freyaphotos"
 
@@ -47,8 +47,8 @@ export default async (request: Request, context: Context) => {
 
 async function resolveGrant(request: Request, context: Context): Promise<Grant | null> {
     const oauth: OAuth2Client = new OAuth2Client({
-        clientId: Netlify.env.get("OAUTH_ID")!,
-        clientSecret: Netlify.env.get("OAUTH_SECRET")!,
+        clientId: Deno.env.get("OAUTH_ID")!,
+        clientSecret: Deno.env.get("OAUTH_SECRET")!,
         authorizationEndpointUri: "https://discord.com/api/oauth2/authorize",
         tokenUri: "https://discord.com/api/oauth2/token",
         redirectUri: context.site.url
