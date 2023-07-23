@@ -16,7 +16,13 @@ type Claims = {
     bearer: string
     refresh: string
     expiry: number
-    userId: string
+    user: DiscordUser
+}
+
+interface DiscordUser {
+    id: string,
+    name: string,
+    avatar: string
 }
 
 //const { payload, protectedHeader } = await jose.jwtVerify(jwt, secret, {
@@ -30,8 +36,8 @@ export default async (request: Request, context: Context) => {
     if (url.searchParams.has("code")) {
         const grant = await resolveGrant(request, context);
         if (grant != null) {
-            const userId = "123"
-            jwt = await createJwt({ ...grant, userId })
+            const user = await fetchDiscordUser(grant.bearer)
+            jwt = await createJwt({ ...grant, user })
             context.cookies.set({
                 name: "token",
                 value: jwt,
@@ -43,6 +49,21 @@ export default async (request: Request, context: Context) => {
     }
 
     return;
+}
+
+async function fetchDiscordUser(bearer: string): Promise<DiscordUser> {
+    const response = await fetch("https://discord.com/api/users/@me", {
+        headers: {
+            "Authorization": "Bearer " + bearer
+        }
+    });
+    if (response.status / 100 != 2) throw "Invalid status code: " + JSON.stringify(response);
+    const body = await response.json();
+    return {
+        id: body.id,
+        avatar: body.avatar,
+        name: body.global_name
+    }
 }
 
 async function resolveGrant(request: Request, context: Context): Promise<Grant | null> {
@@ -74,4 +95,3 @@ async function createJwt(claims: Claims): Promise<string> {
         .setExpirationTime(claims.expiry)
         .sign(hmacSecret)
 }
-
