@@ -51,8 +51,9 @@ async function resolveGrant(request: Request, context: Context): Promise<Grant |
         clientSecret: Deno.env.get("OAUTH_SECRET")!,
         authorizationEndpointUri: "https://discord.com/api/oauth2/authorize",
         tokenUri: "https://discord.com/api/oauth2/token",
-        redirectUri: context.site.url
+        redirectUri: "https://freya-photos.netlify.app/"
     });
+    console.log(context.site.url)
     const grant = await oauth.code.getToken(request.url);
     const scope = grant.scope;
 
