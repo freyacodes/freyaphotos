@@ -7,6 +7,7 @@ import kotlinx.serialization.Transient
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 @Serializable
 @OptIn(ExperimentalSerializationApi::class)
@@ -69,8 +70,14 @@ data class Metadata(
     }
 
     @EncodeDefault
-    val prettyResolution: String? = resolutionX.let { x ->
+    val prettyResolution: String? = resolutionX?.let { x ->
         resolutionY?.let { y -> "${x}x${y}" }
+    }
+
+    @EncodeDefault
+    val prettyShutterSpeed: String? = shutterSpeed?.let { ss ->
+        if (ss < 1.0f) "1/" + (1/ss).roundToInt()
+        else "$ss'"
     }
 
     companion object {
