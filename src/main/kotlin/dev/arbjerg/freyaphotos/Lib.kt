@@ -6,8 +6,7 @@ object Lib {
     val isNetlify = System.getenv("NETLIFY") == "true"
     val buildDir = File("site")
     val imageOutDir = buildDir.child("img")
-    val thumbsOutDir = imageOutDir.child("thumbs")
-    val publicImagesDir = imageOutDir
+    val publicImagesDir = File("data/public")
     val templateDir = File("templates")
     val templateBase = File("templates/base.html")
     val galleryScriptFile = templateDir.child("gallery.js")

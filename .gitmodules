@@ -1,0 +1,3 @@
+[submodule "data"]
+	path = data
+	url = git@github.com:freyacodes/freyaphotos-data.git
