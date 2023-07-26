@@ -53,7 +53,7 @@ object Assembler {
 
         images.forEach { image ->
             val card = cardTemplate.clone()
-            card.attr("href", "/img/${image.originalWebPath}")
+            card.attr("href", image.originalWebPath)
             card.attr("name", image.metadata.name)
             card.getElementsByClass("metadata").html("<p>${image.outputPath.name}</p>")
             card.getElementsByClass("thumbnail")
