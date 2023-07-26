@@ -20,7 +20,7 @@ data class Metadata(
     var iso: Int? = null,
     var aperture: Float? = null,
     var shutterSpeed: Float? = null,
-    var focalLength: Int? = null,
+    var focalLength: Float? = null,
     var timestamp: String? = null,
     var resolutionX: Int? = null,
     var resolutionY: Int? = null,

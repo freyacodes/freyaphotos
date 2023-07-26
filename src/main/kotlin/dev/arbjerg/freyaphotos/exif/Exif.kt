@@ -4,45 +4,49 @@ import com.thebuzzmedia.exiftool.ExifTool
 import com.thebuzzmedia.exiftool.ExifToolBuilder
 import com.thebuzzmedia.exiftool.Tag
 import com.thebuzzmedia.exiftool.core.UnspecifiedTag
+import dev.arbjerg.freyaphotos.Collection
 import dev.arbjerg.freyaphotos.Lib
-import dev.arbjerg.freyaphotos.child
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import java.io.File
 import java.nio.file.Files
+import java.nio.file.Path
+import kotlin.io.path.*
 
 object Exif {
 
     private const val sidecarExtension = ".arw.xmp"
 
+    @OptIn(ExperimentalPathApi::class)
     fun compile() {
-        Lib.publicImagesDir.walkTopDown()
+        Lib.inputImagesDir.walk()
             .filter { it.name.endsWith(".JPG") }
-            .forEach { Files.move(it.toPath(), it.parentFile.child(it.nameWithoutExtension + ".jpg").toPath()) }
+            .forEach { Files.move(it, it.parent.resolve(it.nameWithoutExtension + ".jpg")) }
 
         val exifTool: ExifTool = ExifToolBuilder().build()
-        val sidecars = mutableMapOf<String, File>()
-        Lib.sidecarDir.walkTopDown().forEach {
+        val sidecars = mutableMapOf<String, Path>()
+        Lib.sidecarDir.walk().forEach {
             if (!it.name.lowercase().endsWith(sidecarExtension)) return@forEach
             sidecars[it.name.dropLast(sidecarExtension.length).lowercase()] = it
         }
 
-        Lib.metaDir.mkdir()
+        Lib.metaDir.createDirectories()
         val json = Json { prettyPrint = true }
 
+        val collections = Collection.resolve()
 
-        Lib.publicImagesDir.listFiles()!!.forEach { file ->
-            val name = file.nameWithoutExtension
+        collections.flatMap { it.images }.forEach { image ->
+            val file = image.inputPath
+            val name = image.inputPath.nameWithoutExtension
             println("Reading $file")
-            var meta = buildMetadata(name, exifTool.getImageMeta(file), isSidecar = false)
+            var meta = buildMetadata(name, exifTool.getImageMeta(file.toFile()), isSidecar = false)
             val sidecar = sidecars[name.lowercase()]
             val sidecarMeta = sidecar?.let {
                 println("Reading $it")
-                buildMetadata(name, exifTool.getImageMeta(it), isSidecar = true)
+                buildMetadata(name, exifTool.getImageMeta(it.toFile()), isSidecar = true)
             }
             meta = if (sidecarMeta == null) meta else mergeMetadata(meta, sidecarMeta)
 
-            val metaFile = Lib.metaDir.child("$name.json")
+            val metaFile = Lib.metaDir.resolve("$name.json")
             metaFile.writeText(json.encodeToString(meta))
             println("Wrote $metaFile")
         }
@@ -61,7 +65,7 @@ object Exif {
             t["ISO"]?.toInt(),
             t["Aperture"]?.toFloat(),
             t["ShutterSpeed"]?.toFloat(),
-            t["FocalLength"]?.toInt(),
+            t["FocalLength"]?.toFloat(),
             t["DateTimeOriginal"],
 
             t["ImageWidth"]?.toInt(),
