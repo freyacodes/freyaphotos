@@ -3,6 +3,10 @@
   function = "gallery"
 
 [[edge_functions]]
-  path = ["/gallery/*", "/img/*"]
-  excludedPath = "/img/public/"
+  path = "/gallery/*"
+  function = "authGate"
+
+[[edge_functions]]
+  path = "/img/*"
+  excludedPath = "/img/public/*"
   function = "authGate"
