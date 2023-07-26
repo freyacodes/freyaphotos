@@ -2,11 +2,9 @@ package dev.arbjerg.freyaphotos.build
 
 import dev.arbjerg.freyaphotos.Collection
 import dev.arbjerg.freyaphotos.Lib
+import dev.arbjerg.freyaphotos.list
 import java.nio.file.Files
-import kotlin.io.path.ExperimentalPathApi
-import kotlin.io.path.createDirectories
-import kotlin.io.path.deleteRecursively
-import kotlin.io.path.listDirectoryEntries
+import kotlin.io.path.*
 
 object Builder {
     @OptIn(ExperimentalPathApi::class)
@@ -14,16 +12,22 @@ object Builder {
         if (Lib.isNetlify) println("Running in Netlify")
 
         Lib.buildDir.createDirectories()
-        Lib.buildDir.listDirectoryEntries().forEach {
-            it.deleteRecursively()
+        // Delete everything but thumbs
+        Lib.buildDir.listDirectoryEntries().forEach { f ->
+            if (f.name == "img") f.list()
+                .flatMap { it.list() }
+                .forEach { if (it.isRegularFile()) it.deleteExisting() }
+            else f.deleteRecursively()
         }
         Lib.galleryDir.createDirectories()
 
         val collections = Collection.resolve()
         collections.forEach { c ->
-            c.imageOutPath.createDirectories()
+            c.imageOutPath.resolve("small").createDirectories()
+            c.imageOutPath.resolve("large").createDirectories()
             c.images.forEach { i ->
                 Files.createLink(i.outputPath, i.inputPath)
+                i.createThumbnails()
             }
         }
 

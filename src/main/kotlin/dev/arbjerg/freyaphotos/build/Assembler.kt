@@ -21,11 +21,8 @@ object Assembler {
 
         proc.waitFor(20, TimeUnit.SECONDS)
         if (proc.exitValue() != 0) exitProcess(proc.exitValue())
+        println("Parsed sass")
 
-
-        if (proc.exitValue() != 0) {
-            if (Lib.isNetlify) exitProcess(-1)
-        } else println("Parsed sass")
         proc.inputStream.bufferedReader().readText()
     }
 
