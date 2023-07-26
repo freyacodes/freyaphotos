@@ -13,6 +13,7 @@ object Builder {
     fun build() {
         if (Lib.isNetlify) println("Running in Netlify")
 
+        Lib.buildDir.createDirectories()
         Lib.buildDir.listDirectoryEntries().forEach {
             it.deleteRecursively()
         }
