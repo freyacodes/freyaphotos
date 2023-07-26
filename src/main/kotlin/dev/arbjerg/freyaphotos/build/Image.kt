@@ -13,11 +13,14 @@ data class Image(
     val collection: Collection
 ) {
     val originalWebPath = "/img/${collection.name}/${outputPath.name}"
-    val smallThumbWebPath = originalWebPath
-    val largeThumbWebPath = originalWebPath
+    val smallThumbWebPath = "/img/${collection.name}/small/${outputPath.name}"
+    val largeThumbWebPath = "/img/${collection.name}/large/${outputPath.name}"
 
     fun createThumbnails() {
         val smallPath = outputPath.parent.resolve("small/${outputPath.name}")
+        val largePath = outputPath.parent.resolve("large/${outputPath.name}")
         if (smallPath.notExists()) ImageMagick.createSmallThumbnail(inputPath, smallPath)
+        if (largePath.notExists()) ImageMagick.createLargeThumbnail(inputPath, largePath)
+
     }
 }
