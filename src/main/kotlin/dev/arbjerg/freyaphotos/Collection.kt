@@ -20,7 +20,7 @@ data class Collection(
     val imageOutPath: Path = Lib.imageOutDir.resolve(name)
 
     companion object {
-        fun resolve(): List<Collection> = Lib.inputImagesDir.list()
+        fun resolve(skipMeta: Boolean = false): List<Collection> = Lib.inputImagesDir.list()
             .map { dir ->
                 val imageList = mutableListOf<Image>()
                 val collection = Collection(dir.name, dir.name, imageList)
@@ -30,7 +30,7 @@ data class Collection(
                     val outputPath = collection.imageOutPath.resolve(it.name)
 
                     val metaFile = Lib.metaDir.resolve(it.nameWithoutExtension + ".json")
-                    val meta: Metadata = if (metaFile.exists()) {
+                    val meta: Metadata = if (metaFile.exists() && !skipMeta) {
                         Json.decodeFromString(metaFile.readText())
                     } else {
                         Metadata(it.nameWithoutExtension)

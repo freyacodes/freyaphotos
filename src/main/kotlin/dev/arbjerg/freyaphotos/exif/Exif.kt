@@ -6,11 +6,14 @@ import com.thebuzzmedia.exiftool.Tag
 import com.thebuzzmedia.exiftool.core.UnspecifiedTag
 import dev.arbjerg.freyaphotos.Collection
 import dev.arbjerg.freyaphotos.Lib
+import dev.arbjerg.freyaphotos.build.Image
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.concurrent.TimeUnit
 import kotlin.io.path.*
+import kotlin.system.exitProcess
 
 object Exif {
 
@@ -32,17 +35,17 @@ object Exif {
         Lib.metaDir.createDirectories()
         val json = Json { prettyPrint = true }
 
-        val collections = Collection.resolve()
+        val collections = Collection.resolve(skipMeta = true)
 
         collections.flatMap { it.images }.forEach { image ->
             val file = image.inputPath
             val name = image.inputPath.nameWithoutExtension
             println("Reading $file")
-            var meta = buildMetadata(name, exifTool.getImageMeta(file.toFile()), isSidecar = false)
+            var meta = buildMetadata(image, exifTool.getImageMeta(file.toFile()), isSidecar = false)
             val sidecar = sidecars[name.lowercase()]
             val sidecarMeta = sidecar?.let {
                 println("Reading $it")
-                buildMetadata(name, exifTool.getImageMeta(it.toFile()), isSidecar = true)
+                buildMetadata(image, exifTool.getImageMeta(it.toFile()), isSidecar = true)
             }
             meta = if (sidecarMeta == null) meta else mergeMetadata(meta, sidecarMeta)
 
@@ -52,11 +55,11 @@ object Exif {
         }
     }
 
-    private fun buildMetadata(name: String, tags: Map<Tag, String>, isSidecar: Boolean): Metadata {
+    private fun buildMetadata(image: Image, tags: Map<Tag, String>, isSidecar: Boolean): Metadata {
         val t = tags.mapKeys { it.key.name }
         val subjects = tags.subjects
         return Metadata(
-            name,
+            image.inputPath.nameWithoutExtension,
 
             t["Make"],
             t["Model"],
@@ -72,7 +75,9 @@ object Exif {
             t["ImageHeight"]?.toInt(),
 
             subjects.find { it.startsWith("places") },
-            authorsString = subjects.find { it.startsWith("authors") }
+            authorsString = subjects.find { it.startsWith("authors") },
+
+            if (!isSidecar) getFaceHint(image.inputPath) else null
         )
     }
 
@@ -91,10 +96,26 @@ object Exif {
 
         placesString = sidecar.placesString ?: image.placesString,
         authorsString = sidecar.authorsString ?: image.authorsString,
+
+        faceHint = image.faceHint
     )
 
     private val Map<Tag, String>.subjects
         get() = this[UnspecifiedTag("HierarchicalSubject")]
             ?.split("|>☃")
             ?: emptyList()
+
+    private fun getFaceHint(image: Path): Metadata.Point? {
+        val process = ProcessBuilder("facedetect", "-c", "--biggest", image.toString())
+            .redirectError(ProcessBuilder.Redirect.INHERIT)
+            .start()
+
+        process.waitFor(10, TimeUnit.SECONDS)
+        if (process.exitValue() != 0) exitProcess(process.exitValue())
+
+        val output = process.inputStream.reader().readText()
+        if (output.isBlank()) return null
+        val (x, y) = output.split(Regex("\\s+"))
+        return Metadata.Point(x.toInt(), y.toInt())
+    }
 }
