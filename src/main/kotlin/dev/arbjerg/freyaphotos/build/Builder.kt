@@ -32,5 +32,7 @@ object Builder {
         }
 
         collections.forEach(Assembler::buildCollection)
+        ImageMagick.jobs.forEach { it.get() }
+        ImageMagick.executors.shutdown()
     }
 }
