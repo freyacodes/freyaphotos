@@ -4,5 +4,5 @@
 
 [[edge_functions]]
   path = ["/gallery/*", "/img/*"]
-  excludePath = "/img/public/"
+  excludedPath = "/img/public/"
   function = "authGate"
