@@ -1,33 +1,12 @@
-import { OAuth2Client } from "https://deno.land/x/oauth2_client@v1.0.2/mod.ts";
 import { Context } from "https://edge.netlify.com";
-import * as jose from 'https://deno.land/x/jose@v4.14.4/index.ts';
-
-const hmacSecret = new TextEncoder().encode(Deno.env.get("JWT_SECRET"))
-const jwtAlg = "HS256"
-const jwtIssuer = "freyaphotos"
+import { OAuth2Client } from "https://deno.land/x/oauth2_client@v1.0.2/mod.ts";
+import jwtHelper from "./JwtHelper.ts";
 
 interface Grant {
     bearer: string
     refresh: string
     expiry: number
 }
-
-type Claims = {
-    bearer: string
-    refresh: string
-    expiry: number
-    user: DiscordUser
-}
-
-interface DiscordUser {
-    id: string,
-    name: string,
-    avatar: string
-}
-
-//const { payload, protectedHeader } = await jose.jwtVerify(jwt, secret, {
-//    issuer: "freyaphotos"
-//})
 
 export default async (request: Request, context: Context) => {
     const url = new URL(request.url);
@@ -37,7 +16,7 @@ export default async (request: Request, context: Context) => {
         const grant = await resolveGrant(request, context);
         if (grant != null) {
             const user = await fetchDiscordUser(grant.bearer)
-            jwt = await createJwt({ ...grant, user })
+            jwt = await jwtHelper.createJwt({ ...grant, user })
             context.cookies.set({
                 name: "token",
                 value: jwt,
@@ -85,13 +64,4 @@ async function resolveGrant(request: Request, context: Context): Promise<Grant |
         refresh: grant.refreshToken!,
         expiry: grant.expiresIn! + Math.floor(+new Date() / 1000)
     }
-}
-
-async function createJwt(claims: Claims): Promise<string> {
-    return await new jose.SignJWT(claims)
-        .setProtectedHeader({ alg: jwtAlg })
-        .setIssuedAt()
-        .setIssuer(jwtIssuer)
-        .setExpirationTime(claims.expiry)
-        .sign(hmacSecret)
 }
