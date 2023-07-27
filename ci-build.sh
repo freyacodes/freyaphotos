@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+#ls ${PATH//:/ }
 yarn install
-#./gradlew run --args='exif'
 ./gradlew run

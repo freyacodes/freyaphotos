@@ -1,23 +1,27 @@
 package dev.arbjerg.freyaphotos
 
-import java.io.File
+import kotlinx.serialization.json.Json
+import kotlin.io.path.Path
 
 object Lib {
     val isNetlify = System.getenv("NETLIFY") == "true"
-    val buildDir = File("site")
-    val imageOutDir = buildDir.child("img")
-    val thumbsOutDir = imageOutDir.child("thumbs")
-    val publicImagesDir = imageOutDir
-    val templateDir = File("templates")
-    val templateBase = File("templates/base.html")
-    val galleryScriptFile = templateDir.child("gallery.js")
-    val sassFile = templateDir.child("style").child("style.sass")
-    val staticDir = File("static")
-    val sidecarDir = File("/home/freya/photos")
-    val metaDir = File("meta")
+    val buildDir = Path("site")
+    val galleryDir = Path("site/gallery")
+    val imageOutDir = Path("site/img")
 
-    fun getImagePath(name: String, thumbnail: Boolean = false) = when {
-        !thumbnail -> "/img/$name.jpg"
-        else -> "/img/$name.jpg?nf_resize=smartcrop&w=400&h=400"
+    val inputImagesDir = Path("data/img")
+    val metaDir = Path("data/meta")
+
+    val templateDir = Path("templates")
+    val templateBase = Path("templates/base.html")
+    val galleryScriptFile = Path("templates/gallery.js")
+    val sassFile = Path("templates/style/style.sass")
+
+    val staticDir = Path("static")
+    val sidecarDir = Path("/home/freya/photos")
+    val runtimeConfigFile = Path("netlify/config.json")
+
+    val json = Json {
+        prettyPrint = true
     }
 }

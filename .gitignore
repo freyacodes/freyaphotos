@@ -4,4 +4,4 @@ node_modules
 .idea
 .gradle
 site/*
-!site/img
+netlify/edge-functions/config.json

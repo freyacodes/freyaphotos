@@ -4,6 +4,8 @@ $header-height: 50px
 $color-header: hsl(230, 35%, 4%)
 $color-sidebar: hsl(240, 15%, 10%)
 $color-content: hsl(240, 7%, 20%)
+$text-color: #ccc
+$text-color-bright: #eee
 $modal-header-height: 40px
 $metadata-width: 340px
 
@@ -13,12 +15,15 @@ body
 body.modal-present
   overflow: hidden
 
+.hidden
+  display: none !important
+
 a
-  color: #ccc
+  color: $text-color
   text-decoration: none
 
 a:hover
-  color: #eee
+  color: $text-color-bright
 
 #header
   display: block
@@ -40,6 +45,25 @@ a:hover
   width: $header-height
   min-height: calc(100vh - $header-height)
   background-color: $color-sidebar
+
+  .navbutton
+    display: block
+    width: $header-height
+    height: $header-height
+    background-color: #202020
+    transition: background-color 300ms
+
+    svg
+      fill: $text-color
+      margin: 25%
+      width: 50%
+      height: 50%
+      transition: fill 300ms
+  
+  .navbutton:hover, .navbutton.selected
+    background-color: #383838
+    svg
+      fill: #fff
 
 #content
   background-color: $color-content

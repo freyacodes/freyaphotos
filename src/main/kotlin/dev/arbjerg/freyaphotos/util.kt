@@ -1,7 +1,8 @@
 package dev.arbjerg.freyaphotos
 
 import org.jsoup.Jsoup
-import java.io.File
+import java.nio.file.Path
+import kotlin.io.path.listDirectoryEntries
 
-fun File.child(name: String) = File(this, name)
-fun File.readHtml() = Jsoup.parse(this)
+fun Path.readHtml() = Jsoup.parse(this.toFile())
+fun Path.list() = listDirectoryEntries()

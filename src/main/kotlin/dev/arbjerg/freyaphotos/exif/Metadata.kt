@@ -20,13 +20,15 @@ data class Metadata(
     var iso: Int? = null,
     var aperture: Float? = null,
     var shutterSpeed: Float? = null,
-    var focalLength: Int? = null,
+    var focalLength: Float? = null,
     var timestamp: String? = null,
     var resolutionX: Int? = null,
     var resolutionY: Int? = null,
 
     var placesString: String? = null,
-    var authorsString: String? = null
+    var authorsString: String? = null,
+
+    var faceHint: Point? = null
 ) {
 
     @Transient
@@ -79,6 +81,9 @@ data class Metadata(
         if (ss < 1.0f) "1/" + (1/ss).roundToInt()
         else "$ss'"
     }
+
+    @Serializable
+    data class Point(val x: Int, val y: Int)
 
     companion object {
         private val dateFormat = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss")!!
