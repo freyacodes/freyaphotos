@@ -28,7 +28,12 @@ export default async (request: Request, context: Context) => {
         return denied;
     }
 
-    const gallery = groups1?.length == 2 ? groups1[1] : groups2![2]
+    let gallery: string
+    if (groups1?.length == 2) {
+        gallery = groups1[1]
+    } else {
+        gallery = groups2![1]
+    }
     
     const access = (config.access as Record<string, string[]>);
     const allowedUsers = access[gallery];
