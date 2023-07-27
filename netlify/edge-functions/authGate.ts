@@ -35,8 +35,10 @@ export default async (request: Request, context: Context) => {
 }
 
 async function isAuthorised(jwt: string, gallery: string): Promise<boolean> {
-    const claims = await jwtHelper.validateJwt(jwt)
-    const allowedUsers = (config.access as Record<string, string[]>)
-    if (allowedUsers == null) return false
-    return claims.user.id in allowedUsers[gallery]
+    const claims = await jwtHelper.validateJwt(jwt);
+    console.log(claims)
+    const allowedUsers = (config.access as Record<string, string[]>);
+    console.log(allowedUsers)
+    if (allowedUsers == null) return false;
+    return claims.user.id in allowedUsers[gallery];
 }
