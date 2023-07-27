@@ -3,6 +3,8 @@ package dev.arbjerg.freyaphotos.build
 import dev.arbjerg.freyaphotos.Collection
 import dev.arbjerg.freyaphotos.Lib
 import dev.arbjerg.freyaphotos.list
+import dev.arbjerg.freyaphotos.runtimeConfig
+import kotlinx.serialization.encodeToString
 import java.nio.file.Files
 import kotlin.io.path.*
 
@@ -19,7 +21,11 @@ object Builder {
                 .forEach { if (it.isRegularFile()) it.deleteExisting() }
             else f.deleteRecursively()
         }
+        Lib.runtimeConfigFile.deleteIfExists()
+
         Lib.galleryDir.createDirectories()
+        Lib.runtimeConfigFile.createFile()
+        Lib.runtimeConfigFile.writeText(Lib.json.encodeToString(runtimeConfig))
 
         val collections = Collection.resolve()
         collections.forEach { c ->

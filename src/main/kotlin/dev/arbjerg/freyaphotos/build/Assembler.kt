@@ -60,7 +60,7 @@ object Assembler {
 
         doc.getElementById("content")!!.appendChild(gallery.firstElementChild()!!)
         doc.getElementById("script")!!.text(script)
-        doc.getElementById("gallery-title")!!.text(collection.title)
+        doc.getElementById("gallery-title")!!.text(collection.config.title)
         collection.htmlOutPath.writeText(doc.toString())
         println("Wrote ${collection.htmlOutPath}, ${images.size} images")
     }

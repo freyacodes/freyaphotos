@@ -8,7 +8,6 @@ import dev.arbjerg.freyaphotos.Collection
 import dev.arbjerg.freyaphotos.Lib
 import dev.arbjerg.freyaphotos.build.Image
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.concurrent.TimeUnit
@@ -33,7 +32,6 @@ object Exif {
         }
 
         Lib.metaDir.createDirectories()
-        val json = Json { prettyPrint = true }
 
         val collections = Collection.resolve(skipMeta = true)
 
@@ -50,7 +48,7 @@ object Exif {
             meta = if (sidecarMeta == null) meta else mergeMetadata(meta, sidecarMeta)
 
             val metaFile = Lib.metaDir.resolve("$name.json")
-            metaFile.writeText(json.encodeToString(meta))
+            metaFile.writeText(Lib.json.encodeToString(meta))
             println("Wrote $metaFile")
         }
     }
