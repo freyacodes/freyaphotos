@@ -10,14 +10,23 @@ export default async (request: Request, context: Context) => {
     });
 
     const jwt = context.cookies.get("token");
-    if (jwt == null) return denied;
+    if (jwt == null) {
+        console.log("Access denied: missing token")
+        return denied;
+    }
 
     const url = new URL(request.url);
     const groups = url.pathname.match(galleryRegex);
-    if (groups == null) return denied;
+    if (groups == null) {
+        console.log("Access denied: Unrecognised url")
+        return denied;
+    }
     
     const auth = await isAuthorised(jwt, groups[1]);
-    if (!auth) return denied
+    if (!auth) {
+        console.log("Access denied: Not authenticated or not authorised")
+        return denied;
+    }
     return undefined;    
 }
 
