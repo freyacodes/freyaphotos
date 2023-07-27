@@ -13,7 +13,7 @@ export default async (request: Request, context: Context) => {
     let jwt = context.cookies.get("token");
 
     if (url.searchParams.has("code")) {
-        const grant = await resolveGrant(request, context);
+        const grant = await resolveGrant(request);
         if (grant != null) {
             const user = await fetchDiscordUser(grant.bearer)
             jwt = await jwtHelper.createJwt({ ...grant, user })
@@ -45,13 +45,17 @@ async function fetchDiscordUser(bearer: string): Promise<DiscordUser> {
     }
 }
 
-async function resolveGrant(request: Request, context: Context): Promise<Grant | null> {
+async function resolveGrant(request: Request): Promise<Grant | null> {
+    const url = new URL(request.url);
+    const redirectUri = "https://" + url.hostname + url.pathname;
+    console.log(redirectUri);
+    console.log(url);
     const oauth: OAuth2Client = new OAuth2Client({
         clientId: Deno.env.get("OAUTH_ID")!,
         clientSecret: Deno.env.get("OAUTH_SECRET")!,
         authorizationEndpointUri: "https://discord.com/api/oauth2/authorize",
         tokenUri: "https://discord.com/api/oauth2/token",
-        redirectUri: context.site.url + "/"
+        redirectUri
     });
     const grant = await oauth.code.getToken(request.url);
     const scope = grant.scope;
