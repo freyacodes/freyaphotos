@@ -24,6 +24,9 @@ export default async (request: Request, context: Context) => {
         return denied;
     }
 
+    console.log(groups1);
+    console.log(groups2);
+
     const gallery = groups1?.length == 2 ? groups1[1] : groups2![2]
     
     const access = (config.access as Record<string, string[]>);
