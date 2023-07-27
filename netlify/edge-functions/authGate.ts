@@ -19,13 +19,14 @@ export default async (request: Request, context: Context) => {
     const url = new URL(request.url);
     const groups1 = url.pathname.match(galleryRegex);
     const groups2 = url.pathname.match(galleryImageRegex);
+
+    console.log(groups1);
+    console.log(groups2);
+
     if (groups1?.length != 2 && groups2?.length != 2) {
         console.log("Access denied: Unrecognised url")
         return denied;
     }
-
-    console.log(groups1);
-    console.log(groups2);
 
     const gallery = groups1?.length == 2 ? groups1[1] : groups2![2]
     
