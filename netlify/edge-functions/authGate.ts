@@ -3,7 +3,7 @@ import jwtHelper from "../JwtHelper.ts"
 import config from '../config.json' assert { type: "json" }
 
 const galleryRegex = /\/gallery\/(\w+)/;
-const galleryImageRegex = /\/img\/(\w+).*/;
+const galleryImageRegex = /\/img\/(\w+)\/.*/;
 
 export default async (request: Request, context: Context) => {
     const denied = new Response("Access denied", {
@@ -26,7 +26,15 @@ export default async (request: Request, context: Context) => {
 
     const gallery = groups1 != null ? groups1[1] : groups2![2]
     
-    const auth = await isAuthorised(jwt, gallery);
+    const access = (config.access as Record<string, string[]>);
+    const allowedUsers = access[gallery];
+
+    if (allowedUsers == null) {
+        console.log("Unrecognised gallery: " + gallery)
+        return denied;
+    }
+
+    const auth = await isAuthorised(jwt, allowedUsers);
     if (!auth) {
         console.log("Access denied: Not authenticated or not authorised")
         return denied;
@@ -34,7 +42,7 @@ export default async (request: Request, context: Context) => {
     return undefined;    
 }
 
-async function isAuthorised(jwt: string, gallery: string): Promise<boolean> {
+async function isAuthorised(jwt: string, allowedUsers: string[]): Promise<boolean> {
     let claims: Claims
     try {
         claims = await jwtHelper.validateJwt(jwt);
@@ -43,8 +51,6 @@ async function isAuthorised(jwt: string, gallery: string): Promise<boolean> {
         return false;
     }
     
-    const access = (config.access as Record<string, string[]>);
-    const allowedUsers = access[gallery];
     if (allowedUsers == null) return false;
     return allowedUsers.includes(claims.user.id);
 }
