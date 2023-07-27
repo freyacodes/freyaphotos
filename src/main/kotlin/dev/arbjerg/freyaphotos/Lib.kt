@@ -19,7 +19,7 @@ object Lib {
 
     val staticDir = Path("static")
     val sidecarDir = Path("/home/freya/photos")
-    val runtimeConfigFile = Path("netlify/edge-functions/config.json")
+    val runtimeConfigFile = Path("netlify/config.json")
 
     val json = Json {
         prettyPrint = true

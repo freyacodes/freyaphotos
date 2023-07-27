@@ -1,6 +1,6 @@
 import { Context } from "https://edge.netlify.com";
 import { OAuth2Client } from "https://deno.land/x/oauth2_client@v1.0.2/mod.ts";
-import jwtHelper from "./JwtHelper.ts";
+import jwtHelper from "../JwtHelper.ts";
 
 interface Grant {
     bearer: string
