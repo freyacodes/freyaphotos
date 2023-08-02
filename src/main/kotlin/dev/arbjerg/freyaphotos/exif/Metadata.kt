@@ -79,7 +79,7 @@ data class Metadata(
     @EncodeDefault
     val prettyShutterSpeed: String? = shutterSpeed?.let { ss ->
         if (ss < 1.0f) "1/" + (1/ss).roundToInt()
-        else "$ss'"
+        else "$ss''"
     }
 
     @Serializable
