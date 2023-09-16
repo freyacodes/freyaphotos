@@ -38,7 +38,7 @@ data class Collection(
                     }
 
                     Image(it, outputPath, meta, collection)
-                }
+                }.sortByDescending { it.metadata.zoneDateTime!! }
 
                 collection
             }
