@@ -1,6 +1,6 @@
 [[edge_functions]]
-  path = "/"
-  function = "gallery"
+  path = "/oauth2"
+  function = "oauth2"
 
 [[edge_functions]]
   path = "/gallery/*"
@@ -10,3 +10,11 @@
   path = "/img/*"
   excludedPath = "/img/public/*"
   function = "authGate"
+
+[[edge_functions]]
+  path = "/gallery/*"
+  function = "gallery"
+
+[[edge_functions]]
+  path = "/"
+  function = "gallery"
