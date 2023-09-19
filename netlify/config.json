@@ -1,15 +1,22 @@
 {
     "collections": {
         "public": {
-            "users": []
+            "title": "Public photos",
+            "icon": "",
+            "users": [
+            ]
         },
         "friends": {
+            "title": "Semi-private photos",
+            "icon": "private",
             "users": [
                 "662079549127000064",
                 "272843435864621068"
             ]
         },
         "akka": {
+            "title": "Akka's photos",
+            "icon": "private",
             "users": [
                 "272843435864621068"
             ]

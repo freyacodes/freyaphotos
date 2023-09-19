@@ -11,8 +11,14 @@ val configData by lazy {
 
 val runtimeConfig by lazy {
     RuntimeConfig(configData.collections.associate { col ->
-        col.name to col.users.map {
-            configData.usersByName[it]!!.id.toString()
+        col.name to col.run {
+            RuntimeCollection(
+                col.title,
+                col.icon,
+                col.users.map {
+                    configData.usersByName[it]!!.id.toString()
+                }
+            )
         }
     })
 }
@@ -27,11 +33,18 @@ data class Config(
 
 @Serializable
 data class RuntimeConfig(
-    val access: Map<String, List<String>>
+    val collections: Map<String, RuntimeCollection>
+)
+
+@Serializable
+data class RuntimeCollection(
+    val title: String,
+    val icon: String,
+    val users: List<String>
 )
 
 @Serializable
 data class User(val id: Long, val name: String)
 
 @Serializable
-data class CollectionConfig(val name: String, val title: String, val users: List<String>)
+data class CollectionConfig(val name: String, val title: String, val users: List<String>, val icon: String)

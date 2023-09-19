@@ -12,5 +12,7 @@ interface DiscordUser {
 }
 
 interface Collection {
+    icon: string,
+    title: string,
     users: Array<string>
 }
