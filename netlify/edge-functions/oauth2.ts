@@ -17,6 +17,7 @@ export default async (request: Request, context: Context) => {
         if (grant != null) {
             const user = await fetchDiscordUser(grant.bearer)
             jwt = await jwtHelper.createJwt({ ...grant, user })
+            console.log("User has logged in", user)
             context.cookies.set({
                 name: "token",
                 value: jwt,
