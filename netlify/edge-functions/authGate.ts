@@ -32,6 +32,8 @@ export default async (request: Request, context: Context) => {
         gallery = groups2![1]
     }
 
+    if (gallery == "public") return undefined;
+
     const collections = config.collections as Record<string, Collection>;
     const collection = collections[gallery];
 
