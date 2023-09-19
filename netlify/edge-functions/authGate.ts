@@ -32,15 +32,15 @@ export default async (request: Request, context: Context) => {
         gallery = groups2![1]
     }
 
-    const access = (config.access as Record<string, string[]>);
-    const allowedUsers = access[gallery];
+    const collections = config.collections as Record<string, Collection>;
+    const collection = collections[gallery];
 
-    if (allowedUsers == null) {
+    if (collection == null) {
         console.log("Unrecognised gallery: " + gallery)
         return denied;
     }
 
-    const auth = await isAuthorised(jwt, allowedUsers);
+    const auth = await isAuthorised(jwt, collection.users);
     if (!auth) {
         console.log("Access denied: Not authenticated or not authorised")
         return denied;

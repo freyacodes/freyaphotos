@@ -7,9 +7,14 @@
     "settings": {
         "editor.formatOnSave": true,
         "files.autoSave": "afterDelay",
-        "files.autoSaveDelay": 10000
+        "files.autoSaveDelay": 10000,
+        "deno.enable": true,
+        "deno.lint": true,
+        "deno.unstable": true
     },
     "deno": {
-        "enablePaths": ["netlify/edge-functions"]
+        "enablePaths": [
+            "netlify/edge-functions"
+        ]
     }
 }

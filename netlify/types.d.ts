@@ -10,3 +10,7 @@ interface DiscordUser {
     name: string,
     avatar: string | null
 }
+
+interface Collection {
+    users: Array<string>
+}
