@@ -22,8 +22,8 @@ export default async (request: Request, context: Context) => {
                 name: "token",
                 value: jwt,
                 expires: grant.expiry * 1000,
-                secure: true,
-                sameSite: "Strict"
+                secure: request.url.startsWith("https"),
+                sameSite: "Lax"
             })
         }
     }
@@ -47,8 +47,8 @@ async function fetchDiscordUser(bearer: string): Promise<DiscordUser> {
 }
 
 async function resolveGrant(request: Request): Promise<Grant | null> {
-    const url = new URL(request.url);
-    const redirectUri = "https://" + url.hostname + url.pathname;
+    const redirectUri = new URL("/oauth2", request.url).toString();
+    console.log(redirectUri)
     const oauth: OAuth2Client = new OAuth2Client({
         clientId: Deno.env.get("OAUTH_ID")!,
         clientSecret: Deno.env.get("OAUTH_SECRET")!,

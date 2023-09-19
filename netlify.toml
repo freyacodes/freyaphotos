@@ -1,3 +1,7 @@
+[build]
+  command = "./ci-build.sh"
+  publish = "site"
+
 [[edge_functions]]
   path = "/oauth2"
   function = "oauth2"

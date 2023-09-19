@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "sass": "^1.62.1",
-    "watch": "^1.0.2"
+    "watch": "^1.0.2",
+    "netlify-cli": "^16.4.0"
   }
 }

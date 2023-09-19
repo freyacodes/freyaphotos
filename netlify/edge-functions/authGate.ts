@@ -12,7 +12,7 @@ export default async (request: Request, context: Context) => {
 
     const jwt = context.cookies.get("token");
     if (jwt == null) {
-        console.log("Access denied: missing token")
+        console.log("Access denied: missing token", request.url)
         return denied;
     }
 
@@ -31,7 +31,7 @@ export default async (request: Request, context: Context) => {
     } else {
         gallery = groups2![1]
     }
-    
+
     const access = (config.access as Record<string, string[]>);
     const allowedUsers = access[gallery];
 
@@ -45,18 +45,18 @@ export default async (request: Request, context: Context) => {
         console.log("Access denied: Not authenticated or not authorised")
         return denied;
     }
-    return undefined;    
+    return undefined;
 }
 
 async function isAuthorised(jwt: string, allowedUsers: string[]): Promise<boolean> {
     let claims: Claims
     try {
         claims = await jwtHelper.validateJwt(jwt);
-    } catch(e) {
+    } catch (e) {
         console.log("Authentication failed: ", e)
         return false;
     }
-    
+
     if (allowedUsers == null) return false;
     return allowedUsers.includes(claims.user.id);
 }

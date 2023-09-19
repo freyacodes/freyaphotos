@@ -24,7 +24,5 @@ export default async (_request: Request, context: Context) => {
     avatar.removeAttribute("class");
     avatar.setAttribute("src", DiscordHelper.getAvatarUrl(claims.user));
 
-    console.log("Debug", avatar, document, document.toString())
-
     return new Response(document.toString(), response);
 }
