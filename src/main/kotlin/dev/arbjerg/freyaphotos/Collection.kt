@@ -38,7 +38,12 @@ data class Collection(
                     }
 
                     Image(it, outputPath, meta, collection)
-                }.sortByDescending { it.metadata.zoneDateTime!! }
+                }.run {
+                    if (skipMeta) return@run this
+                    sortByDescending {
+                        it.metadata.zoneDateTime!!
+                    }
+                }
 
                 collection
             }
