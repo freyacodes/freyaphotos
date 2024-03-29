@@ -2,8 +2,9 @@ import { Context } from "https://edge.netlify.com";
 import { DOMParser } from "https://esm.sh/linkedom@0.15.3";
 import JwtHelper from "../JwtHelper.ts";
 import DiscordHelper from "../DiscordHelper.ts";
-import config from '../config.json' assert { type: "json" }
+import config from '../config.json' with { type: "json" }
 import Vectors from "../Vectors.ts";
+import { Collection } from "../types.d.ts";
 
 const collections = config.collections as Record<string, Collection>
 

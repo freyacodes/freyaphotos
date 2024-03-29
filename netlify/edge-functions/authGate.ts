@@ -1,6 +1,7 @@
 import { Context } from "https://edge.netlify.com";
 import jwtHelper from "../JwtHelper.ts"
 import config from '../config.json' with { type: "json" }
+import { Claims, Collection } from "../types.d.ts";
 
 const galleryRegex = /\/gallery\/(\w+)/;
 const galleryImageRegex = /\/img\/(\w+)\/.*/;

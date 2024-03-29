@@ -1,4 +1,5 @@
 import * as jose from 'https://deno.land/x/jose@v4.14.4/index.ts';
+import { Claims } from './types.d.ts';
 
 const hmacSecret = new TextEncoder().encode(Deno.env.get("JWT_SECRET"))
 const jwtAlg = "HS256"
