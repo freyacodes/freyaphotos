@@ -1,7 +1,8 @@
 { pkgs ? import <nixos> {} }:
 
 pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [ 
+  nativeBuildInputs = with pkgs; [
+    yarn
     netlify-cli
     deno
     nodePackages.live-server

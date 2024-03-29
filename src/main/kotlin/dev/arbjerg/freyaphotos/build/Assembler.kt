@@ -5,6 +5,7 @@ import dev.arbjerg.freyaphotos.Lib
 import dev.arbjerg.freyaphotos.readHtml
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 import kotlin.io.path.name
 import kotlin.io.path.pathString
@@ -32,6 +33,8 @@ object Assembler {
         val doc = Lib.templateBase.readHtml()
         doc.getElementById("style")!!.text(sass)
 
+        doc.getElementById("user-button")!!.attr("href", discordAuthorizationUrl)
+
         val manifestEntries = images.map { ManifestEntry(it.metadata, it.largeThumbWebPath) }
         manifestEntries.forEachIndexed { index, manifestEntry ->
             manifestEntry.previous = manifestEntries.getOrNull(index - 1)?.meta?.name
@@ -42,7 +45,7 @@ object Assembler {
         val script = "const manifest = $manifest;\n\n${Lib.galleryScriptFile.readText()}"
 
         val gallery = Lib.templateDir.resolve("gallery/gallery.html").readHtml()
-        val cardTemplate = Lib.templateDir.resolve( "gallery/card.html")
+        val cardTemplate = Lib.templateDir.resolve("gallery/card.html")
             .readHtml()
             .getElementsByTag("body")
             .single()
@@ -63,5 +66,14 @@ object Assembler {
         doc.getElementById("gallery-title")!!.text(collection.config.title)
         collection.htmlOutPath.writeText(doc.toString())
         println("Wrote ${collection.htmlOutPath}, ${images.size} images")
+    }
+
+    private const val DEFAULT_URL = "http://localhost:8080"
+
+    private val discordAuthorizationUrl by lazy {
+        val envUrl = System.getenv("URL") ?: "http://localhost:8080"
+        println("Building as $envUrl")
+        val encodedUrl = URLEncoder.encode(envUrl, "UTF-8")
+        "https://discord.com/oauth2/authorize?client_id=1132726078440489103&redirect_uri=$encodedUrl%2Foauth2&response_type=code&scope=identify"
     }
 }
