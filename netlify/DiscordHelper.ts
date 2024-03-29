@@ -1,3 +1,5 @@
+import { DiscordUser } from "./types.d.ts";
+
 export default {
     getAvatarUrl: function (user: DiscordUser) {
         if (user.avatar != null) {
