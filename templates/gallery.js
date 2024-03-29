@@ -36,7 +36,7 @@ addEventListener("popstate", (event) => {
 });
 
 function onStateChanged(state) {
-    if (state.image == undefined) {
+    if (state == null || state.image == undefined) {
         currentImage = null;
 
         // Exit the modal
