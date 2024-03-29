@@ -69,14 +69,13 @@ object Assembler {
     }
 
     private val discordAuthorizationUrl by lazy {
-        val envUrl = System.getenv("DEPLOY_PRIME_URL")
-        val finalUrl = when(envUrl) {
+        val oauthDomain = when(val envUrl = System.getenv("DEPLOY_PRIME_URL")) {
             "https://main--freya-photos.netlify.app" -> "https://photos.arbjerg.dev"
             null -> "http://localhost:8080"
             else -> envUrl
         }
-        println("Building as $envUrl")
-        val encodedUrl = URLEncoder.encode(envUrl, "UTF-8")
+        println("Building as $oauthDomain")
+        val encodedUrl = URLEncoder.encode(oauthDomain, "UTF-8")
         "https://discord.com/oauth2/authorize?client_id=1132726078440489103&redirect_uri=$encodedUrl%2Foauth2&response_type=code&scope=identify"
     }
 }
