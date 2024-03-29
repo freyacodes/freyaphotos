@@ -71,7 +71,7 @@ object Assembler {
     private const val DEFAULT_URL = "http://localhost:8080"
 
     private val discordAuthorizationUrl by lazy {
-        val envUrl = System.getenv("URL") ?: "http://localhost:8080"
+        val envUrl = System.getenv("DEPLOY_PRIME_URL") ?: "http://localhost:8080"
         println("Building as $envUrl")
         val encodedUrl = URLEncoder.encode(envUrl, "UTF-8")
         "https://discord.com/oauth2/authorize?client_id=1132726078440489103&redirect_uri=$encodedUrl%2Foauth2&response_type=code&scope=identify"
