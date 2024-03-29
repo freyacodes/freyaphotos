@@ -23,11 +23,11 @@ document.addEventListener("keyup", (event) => {
     } else if (event.key == "ArrowLeft") {
         if (currentImage == null) return;
         if (currentImage.previous == undefined) return;
-        pushHistoryForImage(currentImage.previous);
+        pushHistoryForImage(currentImage.previous, true);
     } else if (event.key == "ArrowRight") {
         if (currentImage == null) return;
         if (currentImage.next == undefined) return;
-        pushHistoryForImage(currentImage.next);
+        pushHistoryForImage(currentImage.next, true);
     }
 });
 
