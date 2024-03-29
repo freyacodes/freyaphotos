@@ -68,10 +68,13 @@ object Assembler {
         println("Wrote ${collection.htmlOutPath}, ${images.size} images")
     }
 
-    private const val DEFAULT_URL = "http://localhost:8080"
-
     private val discordAuthorizationUrl by lazy {
-        val envUrl = System.getenv("DEPLOY_PRIME_URL") ?: DEFAULT_URL
+        val envUrl = System.getenv("DEPLOY_PRIME_URL")
+        val finalUrl = when(envUrl) {
+            "https://main--freya-photos.netlify.app" -> "https://photos.arbjerg.dev"
+            null -> "http://localhost:8080"
+            else -> envUrl
+        }
         println("Building as $envUrl")
         val encodedUrl = URLEncoder.encode(envUrl, "UTF-8")
         "https://discord.com/oauth2/authorize?client_id=1132726078440489103&redirect_uri=$encodedUrl%2Foauth2&response_type=code&scope=identify"
