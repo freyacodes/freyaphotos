@@ -4,33 +4,50 @@ document.addEventListener("DOMContentLoaded", () => {
     Array.from(document.getElementsByClassName("gallery-card")).forEach(element => {
         element.removeAttribute("href");
         element.addEventListener("click", () => {
-            openModal(manifest[element.name]);
+            pushHistoryForImage(element.name);
         });
     });
 
     document.getElementById("modal-left").addEventListener("click", (event) => {
-      if (event.target.tagName != "IMG") exitModal();
+      if (event.target.tagName != "IMG") pushHistoryForImage(null, true);
     });
+
+    if (location.hash !== "") {
+        pushHistoryForImage(location.hash.substring(1), true);
+    }
 });
 
 document.addEventListener("keyup", (event) => {
     if (event.key == "Escape") {
-        exitModal();
+        pushHistoryForImage(null, true);
     } else if (event.key == "ArrowLeft") {
         if (currentImage == null) return;
         if (currentImage.previous == undefined) return;
-        openModal(manifest[currentImage.previous]);
+        pushHistoryForImage(currentImage.previous);
     } else if (event.key == "ArrowRight") {
         if (currentImage == null) return;
         if (currentImage.next == undefined) return;
-        openModal(manifest[currentImage.next]);
+        pushHistoryForImage(currentImage.next);
     }
 });
 
-function exitModal() {
-    document.body.className = "";
-    document.getElementById("image-container").src = "";
-    currentImage = null;
+addEventListener("popstate", (event) => {
+    onStateChanged(event.state);
+});
+
+function onStateChanged(state) {
+    if (state.image == undefined) {
+        currentImage = null;
+
+        // Exit the modal
+        document.body.className = "";
+        document.getElementById("image-container").src = "";
+        currentImage = null;
+    } else {
+        currentImage = manifest[state.image];
+        if (currentImage == null) return;
+        openModal(currentImage);
+    }
 }
 
 function openModal(manifestEntry) {
@@ -63,4 +80,21 @@ function preload(name) {
     preloadLink.as = "image";
     document.head.appendChild(preloadLink);
     manifestEntry.preloading = true;
+}
+
+function pushHistoryForImage(image, replace) {
+    const newUrl = new URL(location);
+    if (image != null) {
+        newUrl.hash = "#" + image;
+    } else {
+        newUrl.hash = "";
+    }
+
+    const state = { image: image };
+    if (replace) {
+        history.replaceState(state, "", newUrl);
+    } else {
+        history.pushState(state, "", newUrl);
+    }
+    onStateChanged(state);
 }
