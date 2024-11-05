@@ -21,15 +21,23 @@ document.addEventListener("keyup", (event) => {
     if (event.key == "Escape") {
         pushHistoryForImage(null, true);
     } else if (event.key == "ArrowLeft") {
-        if (currentImage == null) return;
-        if (currentImage.previous == undefined) return;
-        pushHistoryForImage(currentImage.previous, true);
+        previousImage()
     } else if (event.key == "ArrowRight") {
-        if (currentImage == null) return;
-        if (currentImage.next == undefined) return;
-        pushHistoryForImage(currentImage.next, true);
+        nextImage()
     }
 });
+
+function previousImage() {
+    if (currentImage == null) return;
+    if (currentImage.previous == undefined) return;
+    pushHistoryForImage(currentImage.previous, true);
+}
+
+function nextImage() {
+    if (currentImage == null) return;
+    if (currentImage.next == undefined) return;
+    pushHistoryForImage(currentImage.next, true);
+}
 
 addEventListener("popstate", (event) => {
     onStateChanged(event.state);
