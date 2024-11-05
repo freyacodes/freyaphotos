@@ -3,17 +3,12 @@
 @use "lib.sass"
 
 $header-height: 50px
-$color-header: hsl(230, 35%, 4%)
-$color-sidebar: hsl(240, 15%, 10%)
-$color-content: hsl(240, 7%, 20%)
-$text-color: #ccc
-$text-color-bright: #eee
 $modal-header-height: 40px
 $metadata-width: 340px
 
 body
   font-family: sans-serif
-  background-color: $color-header
+  background-color: lib.$color-header
 
 body.modal-present
   overflow: hidden
@@ -22,17 +17,17 @@ body.modal-present
   display: none !important
 
 a
-  color: $text-color
+  color: lib.$text-color
   text-decoration: none
 
 a:hover
-  color: $text-color-bright
+  color: lib.$text-color-bright
 
 #header
   display: block
   width: 100vw
   height: $header-height
-  background-color: $color-header
+  background-color: lib.$color-header
 
 #title
   margin: 16px
@@ -47,7 +42,7 @@ a:hover
 #sidebar
   width: $header-height
   min-height: calc(100vh - $header-height)
-  background-color: $color-sidebar
+  background-color: lib.$color-sidebar
 
   .navbutton
     display: block
@@ -57,7 +52,7 @@ a:hover
     transition: background-color 300ms
 
     svg
-      fill: $text-color
+      fill: lib.$text-color
       margin: 25%
       width: 50%
       height: 50%
@@ -79,7 +74,7 @@ a:hover
       fill: #fff
 
 #content
-  background-color: $color-content
+  background-color: lib.$color-content
   min-height: calc(100vh - $header-height)
   width: calc( 100vw - $header-height)
 
@@ -109,7 +104,7 @@ a:hover
     background-size: cover
 
   .metadata
-    background-color: $color-sidebar
+    background-color: lib.$color-sidebar
     padding: 8px
     color: #eee
 
