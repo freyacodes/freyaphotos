@@ -4,11 +4,11 @@ $mobile-view-height: 64px
 
 @media (width >= 600px)
   .mobile
-    display: none
+    display: none !important
 
 @media only screen and (width < 600px)
   .desktop
-    display: none
+    display: none !important
 
   #header
     height: 75px !important
@@ -32,6 +32,9 @@ $mobile-view-height: 64px
   #gallery
     width: calc(100vw - 20px * 2) !important
     padding: 20px !important
+
+  #modal-left
+    width: 100vw !important
 
   // Presently unused
   //#mobile-menu
