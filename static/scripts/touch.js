@@ -4,21 +4,35 @@ function startup() {
     document.body.addEventListener("touchcancel", onTouchCancel)
     document.body.addEventListener("touchmove", onTouchMove)
 }
-  
+
 document.addEventListener("DOMContentLoaded", startup)
 
+const touches = {}
+
 function onTouchStart(event) {
-    console.log("Touch", event)
+    event.preventDefault()
+    for (const touch of event.changedTouches) {
+        touches[touch.identifier] = {
+            startX: touch.screenX,
+            startY: touch.screenY
+        }
+    }
 }
 
 function onTouchMove(event) {
-    console.log("Move", event)
+    event.preventDefault()
 }
 
 function onTouchCancel(event) {
-    console.log("Cancel", event)
+    event.preventDefault()
+    for (const touch of event.changedTouches) {
+        delete touches[touch.identifier]
+    }
 }
 
 function onTouchEnd(event) {
-    console.log("End", event)
+    event.preventDefault()
+    for (const touch of event.changedTouches) {
+        delete touches[touch.identifier]
+    }
 }
