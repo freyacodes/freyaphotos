@@ -1,11 +1,30 @@
+@use "lib.sass"
+
 $mobile-view-height: 64px
 
-#mobile-menu
-  display: none
-  
-@media only screen and (max-width: 600px)
-  #sidebar
+@media (width >= 600px)
+  .mobile
     display: none
+
+@media only screen and (width < 600px)
+  .desktop
+    display: none
+
+  #header
+    height: 75px !important
+    display: flex !important
+    flex-direction: column
+
+  #title
+    display: block !important
+    line-height: unset !important
+    margin: 18px 0 0 20px !important
+    font-size: 14px !important
+
+  #gallery-title-mobile
+    margin: 0 0 0 20px
+    color: lib.$text-color
+    font-size: 20px
 
   #content
     width: 100vw !important
@@ -14,12 +33,9 @@ $mobile-view-height: 64px
     width: calc(100vw - 20px * 2) !important
     padding: 20px !important
 
-  #scroll-view
-    height: calc(100vh - $mobile-view-height)
-    overflow-y: scroll
-
-  #mobile-menu
-    display: block !important
-    background-color: hsl(230, 35%, 4%)
-    width: 100%
-    height: $mobile-view-height
+  // Presently unused
+  //#mobile-menu
+  //  display: block !important
+  //  background-color: hsl(230, 35%, 4%)
+  //  width: 100%
+  //  height: $mobile-view-height
