@@ -61,9 +61,14 @@ function onStateChanged(state) {
 function openModal(manifestEntry) {
     currentImage = manifestEntry;
     const meta = manifestEntry.meta;
-    document.getElementById("image-container-center").src = "";
-    document.getElementById("image-container-center").src = manifestEntry.url;
-    document.getElementById("modal-header-center").innerText = meta.name;
+
+    if (manifestEntry.previous != null) {
+        applyImage(document.getElementById("slide-container-left"), manifest[manifestEntry.previous])
+    }
+    applyImage(document.getElementById("slide-container-center"), manifestEntry)
+    if (manifestEntry.next != null) {
+        applyImage(document.getElementById("slide-container-left"), manifest[manifestEntry.next])
+    }
 
     document.getElementById("metadata-tbody").childNodes.forEach(tr => {
         if (tr.nodeType != 1) return;
@@ -76,6 +81,14 @@ function openModal(manifestEntry) {
     document.body.className = "modal-present";
     preload(manifestEntry.next);
     preload(manifestEntry.previous);
+}
+
+function applyImage(slideContainer, image) {
+    console.log(slideContainer, image)
+    slideContainer.querySelector(".modal-header").innerText = image.meta.name;
+    const imageContainer = slideContainer.querySelector(".image-container");
+    imageContainer.src = "";
+    imageContainer.src = image.url;
 }
 
 function preload(name) {
