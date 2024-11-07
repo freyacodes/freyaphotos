@@ -127,28 +127,36 @@ a:hover
   justify-content: space-between
   background-color: #000
 
-  #modal-left
+  #modal-slide-center
     width: calc(100vw - $metadata-width)
+
+  .slide-container
     display: flex
-    flex-direction: column
+    width: 100vw
+    flex-direction: row
     justify-content: space-between
 
-  #modal-header
-    width: 100%
-    height: $modal-header-height
-    line-height: $modal-header-height
-    font-size: 16px
-    text-align: center
-    color: #fff
+    .slide
+      display: flex
+      flex-direction: column
+      justify-content: space-between
 
-  #modal-footer
-    width: 100%
-    height: $modal-header-height
+      .modal-header
+        width: 100%
+        height: $modal-header-height
+        line-height: $modal-header-height
+        font-size: 16px
+        text-align: center
+        color: #fff
 
-  #image-container
-    width: 100%
-    object-fit: contain
-    max-height: calc(100vh - $modal-header-height*2)
+      .modal-footer
+        width: 100%
+        height: $modal-header-height
+
+      .image-container
+        width: 100%
+        object-fit: contain
+        max-height: calc(100vh - $modal-header-height*2)
 
   #metadata
     width: $metadata-width

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document.getElementById("modal-left").addEventListener("click", (event) => {
+    document.getElementById("modal-slide-center").addEventListener("click", (event) => {
       if (event.target.tagName != "IMG") pushHistoryForImage(null, true);
     });
 
@@ -49,7 +49,7 @@ function onStateChanged(state) {
 
         // Exit the modal
         document.body.className = "";
-        document.getElementById("image-container").src = "";
+        document.getElementById("image-container-center").src = "";
         currentImage = null;
     } else {
         currentImage = manifest[state.image];
@@ -61,9 +61,9 @@ function onStateChanged(state) {
 function openModal(manifestEntry) {
     currentImage = manifestEntry;
     const meta = manifestEntry.meta;
-    document.getElementById("image-container").src = "";
-    document.getElementById("image-container").src = manifestEntry.url;
-    document.getElementById("modal-header").innerText = meta.name;
+    document.getElementById("image-container-center").src = "";
+    document.getElementById("image-container-center").src = manifestEntry.url;
+    document.getElementById("modal-header-center").innerText = meta.name;
 
     document.getElementById("metadata-tbody").childNodes.forEach(tr => {
         if (tr.nodeType != 1) return;
