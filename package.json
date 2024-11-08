@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "watch": "./node_modules/.bin/watch --interval=1 \"yarn run build\" ./templates ./src",
+    "watch": "./node_modules/.bin/watch --interval=1 \"yarn run build\" ./templates ./src ./static",
     "build": "./gradlew run"
   },
   "devDependencies": {

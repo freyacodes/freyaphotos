@@ -1,0 +1,47 @@
+@use "lib.sass"
+
+$mobile-view-height: 64px
+
+@media (width >= 600px)
+  .mobile
+    display: none !important
+
+@media only screen and (width < 600px)
+  .desktop
+    display: none !important
+
+  #header
+    height: 75px !important
+    display: flex !important
+    flex-direction: column
+
+  #title
+    display: block !important
+    line-height: unset !important
+    margin: 18px 0 0 20px !important
+    font-size: 14px !important
+
+  #gallery-title-mobile
+    margin: 0 0 0 20px
+    color: lib.$text-color
+    font-size: 20px
+
+  #content
+    width: 100vw !important
+
+  #gallery
+    width: calc(100vw - 20px * 2) !important
+    padding: 20px !important
+
+  #modal-container
+    width: 300vw !important
+    left: -100vw !important
+    flex-direction: row !important
+
+  .slide-container
+    width: 100vw
+    position: relative
+    //left: 30vw // Test
+
+  .slide
+    width: 100vw !important

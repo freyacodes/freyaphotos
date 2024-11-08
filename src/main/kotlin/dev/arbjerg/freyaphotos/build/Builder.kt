@@ -26,6 +26,12 @@ object Builder {
         Lib.galleryDir.createDirectories()
         Lib.runtimeConfigFile.createFile()
         Lib.runtimeConfigFile.writeText(Lib.json.encodeToString(runtimeConfig))
+        val staticDirAbsolute = Lib.staticDir.toAbsolutePath()
+        staticDirAbsolute.walk().forEach { path ->
+            val destination = Lib.buildDir.toAbsolutePath().resolve(staticDirAbsolute.relativize(path))
+            destination.parent.createDirectories()
+            Files.copy(path, destination)
+        }
 
         val collections = Collection.resolve()
         collections.forEach { c ->
