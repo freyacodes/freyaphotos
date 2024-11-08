@@ -1,3 +1,8 @@
+// Notes for future Freya:
+// Consider:
+// - https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
+// - https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
+
 function startup() {
     document.body.addEventListener("touchstart", onTouchStart)
     document.body.addEventListener("touchend", onTouchEnd)
