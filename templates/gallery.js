@@ -67,7 +67,7 @@ function openModal(manifestEntry) {
     }
     applyImage(document.getElementById("slide-container-center"), manifestEntry)
     if (manifestEntry.next != null) {
-        applyImage(document.getElementById("slide-container-left"), manifest[manifestEntry.next])
+        applyImage(document.getElementById("slide-container-right"), manifest[manifestEntry.next])
     }
 
     document.getElementById("metadata-tbody").childNodes.forEach(tr => {
