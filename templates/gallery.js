@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    document.getElementById("modal-slide-center").addEventListener("click", (event) => {
+    document.getElementById("slide-center").addEventListener("click", (event) => {
       if (event.target.tagName != "IMG") pushHistoryForImage(null, true);
     });
 
@@ -84,7 +84,6 @@ function openModal(manifestEntry) {
 }
 
 function applyImage(slideContainer, image) {
-    console.log(slideContainer, image)
     slideContainer.querySelector(".modal-header").innerText = image.meta.name;
     const imageContainer = slideContainer.querySelector(".image-container");
     imageContainer.src = "";
