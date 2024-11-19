@@ -119,3 +119,8 @@ function pushHistoryForImage(image, replace) {
     }
     onStateChanged(state);
 }
+
+export function getCurrentImage() {
+    return currentImage;
+}
+

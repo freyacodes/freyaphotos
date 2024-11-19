@@ -7,7 +7,10 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
-import kotlin.io.path.*
+import kotlin.io.path.createParentDirectories
+import kotlin.io.path.name
+import kotlin.io.path.pathString
+import kotlin.io.path.writeText
 import kotlin.system.exitProcess
 
 object Assembler {
@@ -51,7 +54,6 @@ object Assembler {
         doc.getElementById("importmap")!!.apply {
             html(html().replace("%MANIFEST_PATH%", "/manifests/${collection.name}.js"))
         }
-        doc.getElementById("script")!!.text(Lib.galleryScriptFile.readText())
         doc.getElementById("gallery-title")!!.text(collection.config.title)
 
         collection.htmlOutPath.writeText(doc.toString())

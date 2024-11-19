@@ -15,7 +15,6 @@ object Lib {
 
     val templateDir = Path("templates")
     val templateBase = Path("templates/base.html")
-    val galleryScriptFile = Path("templates/gallery.js")
     val sassFile = Path("templates/style/style.sass")
 
     val staticDir = Path("static")
