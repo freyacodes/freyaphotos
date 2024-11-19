@@ -48,6 +48,9 @@ object Assembler {
         }
 
         doc.getElementById("content")!!.appendChild(gallery.firstElementChild()!!)
+        doc.getElementById("importmap")!!.apply {
+            html(html().replace("%MANIFEST_PATH%", "/manifests/${collection.name}.js"))
+        }
         doc.getElementById("script")!!.text(Lib.galleryScriptFile.readText())
         doc.getElementById("gallery-title")!!.text(collection.config.title)
 
@@ -66,7 +69,7 @@ object Assembler {
 
         val manifest = Json.encodeToString(manifestEntries.associateBy { it.meta.name })
         collection.manifestOutPath.createParentDirectories()
-        collection.manifestOutPath.writeText(manifest)
+        collection.manifestOutPath.writeText("export default $manifest")
     }
 
     private val discordAuthorizationUrl by lazy {

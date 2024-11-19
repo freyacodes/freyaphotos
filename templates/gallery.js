@@ -1,4 +1,5 @@
-currentImage = null;
+import manifest from "manifest";
+let currentImage = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     Array.from(document.getElementsByClassName("gallery-card")).forEach(element => {
