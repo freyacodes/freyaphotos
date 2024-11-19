@@ -8,6 +8,7 @@ object Lib {
     val buildDir = Path("site")
     val galleryDir = Path("site/gallery")
     val imageOutDir = Path("site/img")
+    val manifestOutDir = Path("site/manifests")
 
     val inputImagesDir = Path("data/img")
     val metaDir = Path("data/meta")

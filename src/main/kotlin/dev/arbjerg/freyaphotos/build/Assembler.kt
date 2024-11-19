@@ -7,10 +7,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
-import kotlin.io.path.name
-import kotlin.io.path.pathString
-import kotlin.io.path.readText
-import kotlin.io.path.writeText
+import kotlin.io.path.*
 import kotlin.system.exitProcess
 
 object Assembler {
@@ -28,21 +25,10 @@ object Assembler {
     }
 
     fun buildCollection(collection: Collection) {
-        val images = collection.images
-
         val doc = Lib.templateBase.readHtml()
         doc.getElementById("style")!!.text(sass)
 
         doc.getElementById("user-button")!!.attr("href", discordAuthorizationUrl)
-
-        val manifestEntries = images.map { ManifestEntry(it.metadata, it.largeThumbWebPath) }
-        manifestEntries.forEachIndexed { index, manifestEntry ->
-            manifestEntry.previous = manifestEntries.getOrNull(index - 1)?.meta?.name
-            manifestEntry.next = manifestEntries.getOrNull(index + 1)?.meta?.name
-        }
-
-        val manifest = Json.encodeToString(manifestEntries.associateBy { it.meta.name })
-        val script = "const manifest = $manifest;\n\n${Lib.galleryScriptFile.readText()}"
 
         val gallery = Lib.templateDir.resolve("gallery/gallery.html").readHtml()
         val cardTemplate = Lib.templateDir.resolve("gallery/card.html")
@@ -51,7 +37,7 @@ object Assembler {
             .single()
             .firstElementChild()!!
 
-        images.forEach { image ->
+        collection.images.forEach { image ->
             val card = cardTemplate.clone()
             card.attr("href", image.originalWebPath)
             card.attr("name", image.metadata.name)
@@ -62,10 +48,25 @@ object Assembler {
         }
 
         doc.getElementById("content")!!.appendChild(gallery.firstElementChild()!!)
-        doc.getElementById("script")!!.text(script)
+        doc.getElementById("script")!!.text(Lib.galleryScriptFile.readText())
         doc.getElementById("gallery-title")!!.text(collection.config.title)
+
         collection.htmlOutPath.writeText(doc.toString())
-        println("Wrote ${collection.htmlOutPath}, ${images.size} images")
+        writeManifestFile(collection)
+
+        println("Wrote ${collection.htmlOutPath}, ${collection.images.size} images")
+    }
+
+    private fun writeManifestFile(collection: Collection) {
+        val manifestEntries = collection.images.map { ManifestEntry(it.metadata, it.largeThumbWebPath) }
+        manifestEntries.forEachIndexed { index, manifestEntry ->
+            manifestEntry.previous = manifestEntries.getOrNull(index - 1)?.meta?.name
+            manifestEntry.next = manifestEntries.getOrNull(index + 1)?.meta?.name
+        }
+
+        val manifest = Json.encodeToString(manifestEntries.associateBy { it.meta.name })
+        collection.manifestOutPath.createParentDirectories()
+        collection.manifestOutPath.writeText(manifest)
     }
 
     private val discordAuthorizationUrl by lazy {
