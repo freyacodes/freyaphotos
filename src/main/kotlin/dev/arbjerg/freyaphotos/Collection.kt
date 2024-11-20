@@ -18,6 +18,7 @@ data class Collection(
     }
 
     val imageOutPath: Path = Lib.imageOutDir.resolve(name)
+    val manifestOutPath: Path = Lib.manifestOutDir.resolve("$name.js")
 
     companion object {
         fun resolve(skipMeta: Boolean = false): List<Collection> = Lib.inputImagesDir.list()

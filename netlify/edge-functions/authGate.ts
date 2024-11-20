@@ -5,6 +5,8 @@ import { Claims, Collection } from "../types.d.ts";
 
 const galleryRegex = /\/gallery\/(\w+)/;
 const galleryImageRegex = /\/img\/(\w+)\/.*/;
+const galleryManifestRegex = /\/manifests\/(\w+)\/.*/;
+const galleryRegexes = [galleryRegex, galleryImageRegex, galleryManifestRegex];
 
 export default async (request: Request, context: Context) => {
     const denied = new Response("Access denied", {
@@ -17,23 +19,14 @@ export default async (request: Request, context: Context) => {
         return denied;
     }
 
-    const url = new URL(request.url);
-    const groups1 = url.pathname.match(galleryRegex);
-    const groups2 = url.pathname.match(galleryImageRegex);
+    const gallery = getGalleryName(new URL(request.url));
 
-    if (groups1?.length != 2 && groups2?.length != 2) {
+    if (gallery == null) {
         console.log("Access denied: Unrecognised url")
         return denied;
+    } else if (gallery == "public") {
+        return undefined;
     }
-
-    let gallery: string
-    if (groups1?.length == 2) {
-        gallery = groups1[1]
-    } else {
-        gallery = groups2![1]
-    }
-
-    if (gallery == "public") return undefined;
 
     const collections = config.collections as Record<string, Collection>;
     const collection = collections[gallery];
@@ -49,6 +42,14 @@ export default async (request: Request, context: Context) => {
         return denied;
     }
     return undefined;
+}
+
+function getGalleryName(url: URL): string | null {
+    for (const regex in galleryRegexes) {
+        const groups = url.pathname.match(regex);
+        if (groups?.length == 2) return groups[1];
+    }
+    return null
 }
 
 async function isAuthorised(jwt: string, allowedUsers: string[]): Promise<boolean> {

@@ -3,6 +3,8 @@
 // - https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events
 // - https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action
 
+import * as Gallery from "./gallery.js"
+
 function startup() {
     document.body.addEventListener("touchstart", onTouchStart)
     document.body.addEventListener("touchend", onTouchEnd)
@@ -89,10 +91,11 @@ function onTouchEnd(event) {
 }
 
 function shouldHandleTouchEvent() {
-    return currentImage != null
+    return Gallery.getCurrentImage() != null
 }
 
 function shouldAcceptHorizontalSwipe(left) {
+    const currentImage = Gallery.getCurrentImage();
     if (currentImage == null) return false
     if (left && currentImage.previous == null) return false
     if (!left && currentImage.next == null) return false
