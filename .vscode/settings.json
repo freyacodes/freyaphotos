@@ -1,4 +1,4 @@
 {
     "deno.enable": true,
-    "deno.disablePaths": [ "static", "templates" ]
+    "deno.disablePaths": [ "static", "templates", "tssrc" ]
 }
