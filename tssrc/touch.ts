@@ -17,14 +17,21 @@ document.addEventListener("DOMContentLoaded", startup)
 const touches = {}
 const touchThreshold = 0.03
 
-let trackedTouch = null
+type trackedTouch = {
+    identifier: number,
+    startX: number,
+    startY: number,
+    lastX: number,
+    lastY: number
+}
+let trackedTouch: trackedTouch | null = null
 let isHorizontalSwipe = false
 let isVerticalSwipe = false
 
-function onTouchStart(event) {
+function onTouchStart(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         touches[touch.identifier] = {
             identifier: touch.identifier,
             startX: touch.clientX,
@@ -35,10 +42,10 @@ function onTouchStart(event) {
     }
 }
 
-function onTouchMove(event) {
+function onTouchMove(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         //console.log(touch)
         const state = touches[touch.identifier]
         state.lastX = touch.clientX
@@ -60,10 +67,10 @@ function onTouchMove(event) {
     }
 }
 
-function onTouchCancel(event) {
+function onTouchCancel(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         delete touches[touch.identifier]
 
         console.log(touch.identifier, trackedTouch)
@@ -75,10 +82,10 @@ function onTouchCancel(event) {
     }
 }
 
-function onTouchEnd(event) {
+function onTouchEnd(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         delete touches[touch.identifier]
 
         console.log(touch.identifier, trackedTouch)
@@ -94,7 +101,7 @@ function shouldHandleTouchEvent() {
     return Gallery.getCurrentImage() != null
 }
 
-function shouldAcceptHorizontalSwipe(left) {
+function shouldAcceptHorizontalSwipe(left: boolean) {
     const currentImage = Gallery.getCurrentImage();
     if (currentImage == null) return false
     if (left && currentImage.previous == null) return false
@@ -102,6 +109,6 @@ function shouldAcceptHorizontalSwipe(left) {
     return true
 }
 
-function shouldAcceptVerticalSwipe(up) {
+function shouldAcceptVerticalSwipe(up: boolean) {
     return false
 }

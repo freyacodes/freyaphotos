@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "outDir": "site/scripts/",
+        "module": "ES6"
+    },
+    "include": [
+        "tssrc/**/*"
+    ]
+}
