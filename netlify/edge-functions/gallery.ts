@@ -1,5 +1,5 @@
 import { Context } from "https://edge.netlify.com";
-import { DOMParser } from "https://esm.sh/linkedom@0.18.12";
+import { DOMParser } from "https://esm.sh/v135/linkedom@0.18.12";
 import JwtHelper from "../JwtHelper.ts";
 import DiscordHelper from "../DiscordHelper.ts";
 import config from '../config.json' with { type: "json" }
