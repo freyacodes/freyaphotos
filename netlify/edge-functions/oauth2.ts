@@ -1,5 +1,5 @@
 import { Context } from "https://edge.netlify.com";
-import { OAuth2Client } from "https://deno.land/x/oauth2_client@v1.0.2/mod.ts";
+import { OAuth2Client } from "https://deno.land/x/oauth2_client@v1.0.3/mod.ts";
 import jwtHelper from "../JwtHelper.ts";
 import { DiscordUser } from "../types.d.ts";
 

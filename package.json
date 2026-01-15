@@ -9,8 +9,8 @@
     "build": "./gradlew run"
   },
   "devDependencies": {
+    "netlify-cli": "^23.13.3",
     "sass": "^1.62.1",
-    "watch": "^1.0.2",
-    "netlify-cli": "^16.4.0"
+    "watch": "^1.0.2"
   }
 }
