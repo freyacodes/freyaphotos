@@ -31,7 +31,7 @@ let isVerticalSwipe = false
 function onTouchStart(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         touches[touch.identifier] = {
             identifier: touch.identifier,
             startX: touch.clientX,
@@ -45,7 +45,7 @@ function onTouchStart(event: TouchEvent) {
 function onTouchMove(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         //console.log(touch)
         const state = touches[touch.identifier]
         state.lastX = touch.clientX
@@ -70,7 +70,7 @@ function onTouchMove(event: TouchEvent) {
 function onTouchCancel(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         delete touches[touch.identifier]
 
         console.log(touch.identifier, trackedTouch)
@@ -85,7 +85,7 @@ function onTouchCancel(event: TouchEvent) {
 function onTouchEnd(event: TouchEvent) {
     if (!shouldHandleTouchEvent()) return
     event.preventDefault()
-    for (const touch of event.changedTouches) {
+    for (const touch of event.changedTouches as unknown as Array<Touch>) {
         delete touches[touch.identifier]
 
         console.log(touch.identifier, trackedTouch)
