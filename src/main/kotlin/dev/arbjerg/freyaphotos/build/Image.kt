@@ -21,6 +21,5 @@ data class Image(
         val largePath = outputPath.parent.resolve("large/${outputPath.name}")
         if (smallPath.notExists()) ImageMagick.createSmallThumbnail(inputPath, smallPath, metadata)
         if (largePath.notExists()) ImageMagick.createLargeThumbnail(inputPath, largePath)
-
     }
 }

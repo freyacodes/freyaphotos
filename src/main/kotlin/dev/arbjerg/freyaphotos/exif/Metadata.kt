@@ -1,3 +1,5 @@
+
+
 package dev.arbjerg.freyaphotos.exif
 
 import kotlinx.serialization.EncodeDefault
@@ -10,6 +12,7 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 @Serializable
+@Suppress("unused")
 @OptIn(ExperimentalSerializationApi::class)
 data class Metadata(
     val name: String,
@@ -81,6 +84,8 @@ data class Metadata(
         if (ss < 1.0f) "1/" + (1/ss).roundToInt()
         else "$ss''"
     }
+    
+    val label: String = city ?: region ?: country ?: name
 
     @Serializable
     data class Point(val x: Int, val y: Int)
