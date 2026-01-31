@@ -43,7 +43,7 @@ object Assembler {
             val card = cardTemplate.clone()
             card.attr("href", image.originalWebPath)
             card.attr("name", image.metadata.name)
-            card.getElementsByClass("metadata").html("<p>${image.metadata.label}</p>")
+            card.getElementsByClass("metadata").html("<b>${image.metadata.label}</b>")
             card.getElementsByClass("thumbnail")
                 .attr("style", "background-image: url(${image.smallThumbWebPath})")
             gallery.getElementById("gallery-cards")!!.appendChild(card)
