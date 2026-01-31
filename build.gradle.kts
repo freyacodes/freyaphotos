@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
 	kotlin("jvm") version "2.3.0"
 	kotlin("plugin.serialization") version "2.3.0"
@@ -25,9 +27,10 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(17)
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }
-
 application {
 	mainClass.set("dev.arbjerg.freyaphotos.MainKt")
 }
