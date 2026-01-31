@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-#ls ${PATH//:/ }
+java -version
 yarn install
 ./gradlew run
