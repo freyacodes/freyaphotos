@@ -24,6 +24,10 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 application {
 	mainClass.set("dev.arbjerg.freyaphotos.MainKt")
 }
